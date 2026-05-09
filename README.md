@@ -4,7 +4,7 @@ A fully automated, production-ready system that:
 
 1. **Wakes up every day at 08:00 Malaysia time** (configurable).
 2. **Fetches the last 24 hours** of tech news from GitHub Trending & Releases, official framework blogs (Angular, React, Vue, Python, Node.js, TypeScript), AI/ML sources (OpenAI, Google AI, Hugging Face, DeepMind, Papers with Code), Hacker News, and NewsAPI.
-3. **Filters, deduplicates, and categorises** with OpenAI GPT-4o mini.
+3. **Filters, deduplicates, and categorises** with Google Gemini (default: `gemini-2.5-flash`, via Google AI Studio).
 4. **Generates SEO + GEO optimised blog articles** (Markdown + HTML + JSON-LD structured data).
 5. **Saves locally** in clean directory structure and **optionally publishes to WordPress** via REST API.
 6. Falls back gracefully to a *"No major updates today"* post if all sources are quiet, never breaking the daily cadence.
@@ -36,7 +36,7 @@ daily-tech-news-blog/
 │   │   ├── huggingface.py
 │   │   └── papers_with_code.py
 │   ├── processors/
-│   │   ├── llm_client.py     # OpenAI wrapper w/ retries + JSON mode
+│   │   ├── llm_client.py     # Google Gemini wrapper w/ retries + native JSON mode
 │   │   └── filter.py         # LLM dedupe + quality filter + categorise
 │   ├── generators/
 │   │   ├── prompts.py        # SEO + GEO rules embedded here
@@ -79,7 +79,7 @@ pip install -r requirements.txt
 
 # 4) Configure
 cp .env.example .env
-# edit .env and set OPENAI_API_KEY (and optional NEWSAPI_KEY, GITHUB_TOKEN, etc.)
+# edit .env and set GEMINI_API_KEY (and optional NEWSAPI_KEY, GITHUB_TOKEN, etc.)
 
 # 5) Smoke test the fetchers (no LLM/publish)
 python main.py --fetch-only | head
@@ -99,7 +99,7 @@ Generated articles will appear under `output/markdown/`, `output/html/`, `output
 
 | Service | Required? | How to get it |
 |---|---|---|
-| **OpenAI** | **Yes** | https://platform.openai.com/api-keys — create a key, paste into `OPENAI_API_KEY`. The default model is `gpt-4o-mini`. |
+| **Google Gemini (AI Studio)** | **Yes** | https://aistudio.google.com/apikey — sign in with a Google account, click *Create API key*, paste into `GEMINI_API_KEY`. Free tier covers far more than one daily run. The default model is `gemini-2.5-flash`; switch to `gemini-2.5-flash-lite` for absolute lowest cost or `gemini-2.5-pro` for highest quality by setting `GEMINI_MODEL`. |
 | **NewsAPI** | Optional but recommended | https://newsapi.org/register — free tier (100 reqs/day) is enough. Paste into `NEWSAPI_KEY`. If empty, the NewsAPI fetcher is silently skipped. |
 | **GitHub** | Optional (raises rate limit) | https://github.com/settings/tokens — create a fine-grained token with public read access, paste into `GITHUB_TOKEN`. Anonymous calls also work but are limited to 60/hour. |
 | **Hugging Face** | Optional | https://huggingface.co/settings/tokens — read token, paste into `HUGGINGFACE_TOKEN`. |
@@ -111,9 +111,11 @@ Generated articles will appear under `output/markdown/`, `output/html/`, `output
 
 | Key | Default | Description |
 |---|---|---|
-| `OPENAI_API_KEY` | — | Your OpenAI key. **Required.** |
-| `OPENAI_MODEL` | `gpt-4o-mini` | Model used for filtering and article generation. |
-| `OPENAI_TEMPERATURE` | `0.4` | Lower = more deterministic. Articles are factual; keep low. |
+| `GEMINI_API_KEY` | — | Your Google AI Studio key. **Required.** |
+| `GEMINI_MODEL` | `gemini-2.5-flash` | Model used for filtering and article generation. Options: `gemini-2.5-flash-lite`, `gemini-2.5-flash`, `gemini-2.5-pro`. |
+| `GEMINI_FALLBACK_MODEL` | `gemini-2.5-flash-lite` | Cheaper fallback model. |
+| `GEMINI_MAX_TOKENS` | `4000` | Max output tokens per call. |
+| `GEMINI_TEMPERATURE` | `0.4` | Lower = more deterministic. Articles are factual; keep low. |
 | `BLOG_NAME` | `Daily Tech Pulse` | Used in JSON-LD `publisher`. |
 | `BLOG_AUTHOR` | `Daily Tech Pulse Editorial` | Used in JSON-LD `author` and YAML front matter. |
 | `BLOG_BASE_URL` | `https://example.com` | Used to build canonical URLs. |
@@ -225,7 +227,7 @@ What the prompt enforces in every article:
 
 | Symptom | Likely cause / fix |
 |---|---|
-| `RuntimeError: OPENAI_API_KEY is not configured` | `.env` missing or not loaded. Run from project root. |
+| `RuntimeError: GEMINI_API_KEY is not configured` | `.env` missing or not loaded. Run from project root. Get a key at https://aistudio.google.com/apikey. |
 | Empty NewsAPI results | Free tier rate-limit exhausted, or `NEWSAPI_KEY` empty. Fetcher logs `no API key configured; skipping`. |
 | 403 from GitHub | Set `GITHUB_TOKEN` to raise the anonymous rate limit. |
 | Articles all from a single source | Other fetchers may be timing out — check logs. Network DNS or feed URLs may have changed. |

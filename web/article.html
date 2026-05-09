@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{{ARTICLE_TITLE}} — Daily Tech Pulse</title>
+  <meta name="description" content="{{META_DESCRIPTION}}" />
+  <meta name="theme-color" content="#06070b" />
+  <link rel="canonical" href="{{CANONICAL_URL}}" />
+  <link rel="alternate" type="application/rss+xml" title="Daily Tech Pulse RSS" href="/feed.xml" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="{{ARTICLE_TITLE}}" />
+  <meta property="og:description" content="{{META_DESCRIPTION}}" />
+  <meta property="og:url" content="{{CANONICAL_URL}}" />
+  <meta property="og:image" content="{{OG_IMAGE}}" />
+  <meta property="article:published_time" content="{{PUBLISHED_ISO}}" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://rsms.me" crossorigin />
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <link rel="stylesheet" href="/assets/css/article.css" />
+
+  <!-- Generator injects two JSON-LD blocks here: BlogPosting + FAQPage -->
+  {{JSON_LD_BLOCKS}}
+</head>
+<body>
+
+<header class="nav-wrap">
+  <nav class="nav glass">
+    <a class="nav__brand" href="/">
+      <span class="logo-mark">
+        <svg viewBox="0 0 32 32" width="28" height="28" fill="none">
+          <defs><linearGradient id="lg" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#00d4ff"/><stop offset="100%" stop-color="#7c5cff"/>
+          </linearGradient></defs>
+          <path d="M16 2 L29 9 V23 L16 30 L3 23 V9 Z" stroke="url(#lg)" stroke-width="1.6"/>
+          <circle cx="16" cy="16" r="4" fill="url(#lg)"/>
+        </svg>
+      </span>
+      <span class="logo-text">Tech<span class="logo-text--accent">Pulse</span></span>
+    </a>
+    <ul class="nav__links">
+      <li><a href="/#latest">Latest</a></li>
+      <li><a href="/#github">GitHub</a></li>
+      <li><a href="/#categories">Categories</a></li>
+      <li><a href="/feed.xml">RSS</a></li>
+    </ul>
+    <div class="nav__actions">
+      <a class="btn btn--primary btn--sm" href="/#newsletter">Subscribe</a>
+    </div>
+  </nav>
+</header>
+
+<main class="container article-wrap">
+
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a>
+    <span aria-hidden="true">/</span>
+    <a href="/#categories">{{CATEGORY}}</a>
+  </nav>
+
+  <article class="article">
+    <header class="article__header">
+      <span class="chip chip--accent">{{CATEGORY}}</span>
+      <h1 class="article__title">{{ARTICLE_TITLE}}</h1>
+      <div class="meta article__meta">
+        <span>{{AUTHOR}}</span>
+        <span class="meta__sep">·</span>
+        <time datetime="{{PUBLISHED_ISO}}">{{PUBLISHED_HUMAN}}</time>
+        <span class="meta__sep">·</span>
+        <span>{{READING_TIME}} min read</span>
+      </div>
+    </header>
+
+    <aside class="tldr glass">
+      <span class="eyebrow">TL;DR</span>
+      <p>{{TLDR}}</p>
+    </aside>
+
+    <div class="prose">
+      {{BODY_HTML}}
+    </div>
+
+    <section class="faq">
+      <h2>Frequently Asked Questions</h2>
+      {{FAQ_HTML}}
+    </section>
+
+    <footer class="article__footer">
+      <h3>Sources</h3>
+      <ul class="sources">
+        {{SOURCES_HTML}}
+      </ul>
+
+      <div class="tags">
+        {{TAGS_HTML}}
+      </div>
+    </footer>
+  </article>
+
+</main>
+
+<footer class="footer">
+  <div class="container footer__bottom">
+    <p>&copy; <span id="year"></span> Daily Tech Pulse. AI-curated content.</p>
+    <p class="footer__powered">Built with <span class="grad-text">vanilla web</span></p>
+  </div>
+</footer>
+
+<script src="/assets/js/main.js" defer></script>
+</body>
+</html>

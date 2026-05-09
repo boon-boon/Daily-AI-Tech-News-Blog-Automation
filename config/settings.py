@@ -34,12 +34,14 @@ def _bool(env_value: str | None, default: bool = False) -> bool:
 
 @dataclass
 class Settings:
-    # ---- LLM ----
-    openai_api_key: str = os.getenv("OPENAI_API_KEY", "")
-    openai_model: str = os.getenv("OPENAI_MODEL", "gpt-4o-mini")
-    openai_fallback_model: str = os.getenv("OPENAI_FALLBACK_MODEL", "gpt-4o-mini")
-    openai_max_tokens: int = int(os.getenv("OPENAI_MAX_TOKENS", "4000"))
-    openai_temperature: float = float(os.getenv("OPENAI_TEMPERATURE", "0.4"))
+    # ---- LLM (Google Gemini via Google AI Studio) ----
+    gemini_api_key: str = os.getenv("GEMINI_API_KEY", "")
+    gemini_model: str = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+    gemini_fallback_model: str = os.getenv(
+        "GEMINI_FALLBACK_MODEL", "gemini-2.5-flash-lite"
+    )
+    gemini_max_tokens: int = int(os.getenv("GEMINI_MAX_TOKENS", "4000"))
+    gemini_temperature: float = float(os.getenv("GEMINI_TEMPERATURE", "0.4"))
 
     # ---- Blog identity ----
     blog_name: str = os.getenv("BLOG_NAME", "Daily Tech Pulse")
