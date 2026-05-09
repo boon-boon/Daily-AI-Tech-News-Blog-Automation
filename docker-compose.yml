@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  daily-tech-news:
+    build: .
+    image: daily-tech-news:latest
+    container_name: daily-tech-news
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - TZ=Asia/Kuala_Lumpur
+    volumes:
+      - ./output:/app/output
+      - ./logs:/app/logs
+    # Run scheduled mode by default. To run a one-shot:
+    #   docker compose run --rm daily-tech-news python main.py --once
+    command: ["python", "main.py", "--schedule"]

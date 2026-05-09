@@ -1,0 +1,18 @@
+[Unit]
+Description=Daily AI Tech News Blog scheduler
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/opt/daily-tech-news
+EnvironmentFile=/opt/daily-tech-news/.env
+ExecStart=/opt/daily-tech-news/.venv/bin/python /opt/daily-tech-news/main.py --schedule
+Restart=on-failure
+RestartSec=30
+StandardOutput=append:/opt/daily-tech-news/logs/service.log
+StandardError=append:/opt/daily-tech-news/logs/service.err.log
+
+[Install]
+WantedBy=multi-user.target

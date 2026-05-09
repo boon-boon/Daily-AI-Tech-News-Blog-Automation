@@ -1,0 +1,15 @@
+# =============================================================================
+# Sample crontab for Daily AI Tech News Blog
+# =============================================================================
+# Install:
+#   crontab -e
+# then paste a line below, adjusting paths.
+#
+# Times below are LOCAL TIME of the host. If your server is in UTC and you want
+# 08:00 Malaysia time (UTC+8), use 00:00 UTC.
+#
+# Required env: PATH and OPENAI_API_KEY (cron has a minimal env).
+# Easiest pattern: source the project's .env from a wrapper script.
+
+# 08:00 Malaysia time (UTC+8) = 00:00 UTC. Adjust if your server is in MYT.
+0 0 * * *   /opt/daily-tech-news/run-daily.sh >> /opt/daily-tech-news/logs/cron.log 2>&1
