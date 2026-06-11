@@ -616,3 +616,26 @@ input, textarea { font: inherit; color: inherit; }
   }
   .hero__mesh { animation: none; }
 }
+
+/* ---------- 18. Community Pulse ---------- */
+.community-pulse .take {
+  margin: 0; padding: 1.15rem 1.25rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent-purple);
+  border-radius: var(--r-md);
+  display: flex; flex-direction: column; gap: 0.75rem;
+}
+.community-pulse .take p { margin: 0; color: var(--text-primary); font-style: normal; font-size: 0.95rem; line-height: 1.55; }
+.community-pulse .take footer {
+  display: flex; align-items: center; justify-content: space-between; gap: 0.5rem;
+  font-size: 0.8rem; color: var(--text-tertiary); flex-wrap: wrap;
+}
+.community-pulse .take__src {
+  text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600;
+  color: var(--accent-cyan);
+}
+.community-pulse .take__eng { color: var(--text-secondary); }
+.community-pulse .take a { color: var(--accent-blue); }
+
+.footer__updated { color: var(--text-tertiary); font-size: 0.78rem; margin-left: 0.5rem; }

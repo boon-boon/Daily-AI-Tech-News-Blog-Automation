@@ -131,8 +131,8 @@
         </a>
       </div>
 
-      <!-- Featured article card (large) -->
-      <article class="featured-card glass" data-reveal>
+      <!-- Featured article card (large) — hydrated from /data/daily.json -->
+      <article class="featured-card glass" data-reveal data-slot="featured">
         <div class="featured-card__media" aria-hidden="true">
           <div class="featured-card__media-grad"></div>
           <span class="chip chip--accent">Featured</span>
@@ -162,9 +162,9 @@
   </section>
 
   <!-- =================================================================
-       STATS BAR
+       STATS BAR — hydrated from /data/daily.json
        ================================================================= -->
-  <section class="stats container" aria-label="Site statistics">
+  <section class="stats container" aria-label="Site statistics" data-slot="stats">
     <div class="stat"><span class="stat__num">1,247</span><span class="stat__label">Articles published</span></div>
     <div class="stat"><span class="stat__num">52</span><span class="stat__label">Sources monitored</span></div>
     <div class="stat"><span class="stat__num">08:00</span><span class="stat__label">Daily MYT update</span></div>
@@ -189,7 +189,7 @@
       </nav>
     </header>
 
-    <div class="grid grid--cards" id="news-grid">
+    <div class="grid grid--cards" id="news-grid" data-slot="latest">
       <!-- Cards are injected by main.js (sample data) but include 6 SSR cards
            for SEO + immediate paint -->
 
@@ -303,7 +303,7 @@
       </a>
     </header>
 
-    <div class="grid grid--repos">
+    <div class="grid grid--repos" data-slot="github">
 
       <article class="repo" data-reveal>
         <div class="repo__top">
@@ -382,7 +382,7 @@
       </div>
     </header>
 
-    <div class="grid grid--cats">
+    <div class="grid grid--cats" data-slot="categories">
       <a href="#" class="cat" data-reveal style="--cat-c1:#7c5cff;--cat-c2:#00d4ff">
         <span class="cat__icon">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
@@ -432,6 +432,11 @@
       </a>
     </div>
   </section>
+
+  <!-- =================================================================
+       COMMUNITY PULSE — rendered by data-loader.js only if data exists
+       ================================================================= -->
+  <div data-slot="community-pulse"></div>
 
   <!-- =================================================================
        NEWSLETTER
@@ -513,11 +518,12 @@
   </div>
 
   <div class="container footer__bottom">
-    <p>&copy; <span id="year"></span> Daily Tech Pulse. AI-curated content; sources cited per article.</p>
+    <p>&copy; <span id="year"></span> Daily Tech Pulse. AI-curated content; sources cited per article. <span data-slot="generated-at" class="footer__updated"></span></p>
     <p class="footer__powered">Built with <span class="grad-text">vanilla web</span> · Deployed on GitHub Pages</p>
   </div>
 </footer>
 
 <script src="/assets/js/main.js" defer></script>
+<script src="/assets/js/data-loader.js" defer></script>
 </body>
 </html>

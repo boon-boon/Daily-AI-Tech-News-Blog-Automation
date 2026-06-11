@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Anthropic ships Claude Fable 5 — early benchmarks and what changes for builders — Daily Tech Pulse</title>
+  <meta name="description" content="Claude Fable 5 launched June 11, 2026 with a 30-page system card. Benchmarks, pricing, agentic improvements, and what to test before swapping your default LLM." />
+  <meta name="theme-color" content="#06070b" />
+  <link rel="canonical" href="/posts/2026-06-11/claude-fable-5-launch.html" />
+  <link rel="alternate" type="application/rss+xml" title="Daily Tech Pulse RSS" href="/feed.xml" />
+
+  <meta property="og:type" content="article" />
+  <meta property="og:title" content="Anthropic ships Claude Fable 5 — early benchmarks and what changes for builders" />
+  <meta property="og:description" content="Claude Fable 5 launched June 11, 2026 with a 30-page system card. Benchmarks, pricing, agentic improvements, and what to test before swapping your default LLM." />
+  <meta property="og:url" content="/posts/2026-06-11/claude-fable-5-launch.html" />
+  <meta property="og:image" content="/assets/img/og-default.svg" />
+  <meta property="article:published_time" content="2026-06-11T08:00:00+08:00" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="preconnect" href="https://rsms.me" crossorigin />
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+  <link rel="stylesheet" href="/assets/css/main.css" />
+  <link rel="stylesheet" href="/assets/css/article.css" />
+
+  <!-- Generator injects two JSON-LD blocks here: BlogPosting + FAQPage -->
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Anthropic ships Claude Fable 5 \u2014 early benchmarks and what changes for builders",
+  "description": "Claude Fable 5 launched June 11, 2026 with a 30-page system card. Benchmarks, pricing, agentic improvements, and what to test before swapping your default LLM.",
+  "datePublished": "2026-06-11T08:00:00+08:00",
+  "dateModified": "2026-06-11T08:00:00+08:00",
+  "author": {
+    "@type": "Organization",
+    "name": "Daily Tech Pulse Editorial"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Daily Tech Pulse"
+  },
+  "mainEntityOfPage": "/posts/2026-06-11/claude-fable-5-launch.html",
+  "articleSection": "AI Models",
+  "keywords": "anthropic, claude, claude-fable-5, llm-benchmarks, ai-models, agentic"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does Claude Fable 5 replace Claude Opus 4.6?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Opus 4.6 remains available at the existing Opus pricing tier. Fable 5 is positioned alongside Sonnet 4.6 at the same per-token cost, so customers can switch in place without touching their pricing model."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the Mythos sub-variant for?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Mythos is a system parameter (variant: \"mythos\") that biases Fable 5 toward long-form narrative coherence \u2014 useful for story generation, roleplay, and scenario writing. It uses the same underlying weights as base Fable 5 and the same API endpoint."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does Claude Fable 5 cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pricing matches the Sonnet tier: $3 per million input tokens and $15 per million output tokens. There is no separate Mythos pricing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there a free tier for Claude Fable 5?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Free-tier access via claude.ai will roll out within 7 days according to Anthropic. API access requires an existing Anthropic API account."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I migrate my existing agents to Claude Fable 5?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes for agentic and multi-step coding workflows, where the 50-turn stability gain is significant. Test first if you rely on parallel tool calls or have prompts near refusal boundaries \u2014 see pages 14\u201318 of the system card."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<header class="nav-wrap">
+  <nav class="nav glass">
+    <a class="nav__brand" href="/">
+      <span class="logo-mark">
+        <svg viewBox="0 0 32 32" width="28" height="28" fill="none">
+          <defs><linearGradient id="lg" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stop-color="#00d4ff"/><stop offset="100%" stop-color="#7c5cff"/>
+          </linearGradient></defs>
+          <path d="M16 2 L29 9 V23 L16 30 L3 23 V9 Z" stroke="url(#lg)" stroke-width="1.6"/>
+          <circle cx="16" cy="16" r="4" fill="url(#lg)"/>
+        </svg>
+      </span>
+      <span class="logo-text">Tech<span class="logo-text--accent">Pulse</span></span>
+    </a>
+    <ul class="nav__links">
+      <li><a href="/#latest">Latest</a></li>
+      <li><a href="/#github">GitHub</a></li>
+      <li><a href="/#categories">Categories</a></li>
+      <li><a href="/feed.xml">RSS</a></li>
+    </ul>
+    <div class="nav__actions">
+      <a class="btn btn--primary btn--sm" href="/#newsletter">Subscribe</a>
+    </div>
+  </nav>
+</header>
+
+<main class="container article-wrap">
+
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="/">Home</a>
+    <span aria-hidden="true">/</span>
+    <a href="/#categories">AI Models</a>
+  </nav>
+
+  <article class="article">
+    <header class="article__header">
+      <span class="chip chip--accent">AI Models</span>
+      <h1 class="article__title">Anthropic ships Claude Fable 5 — early benchmarks and what changes for builders</h1>
+      <div class="meta article__meta">
+        <span>Daily Tech Pulse Editorial</span>
+        <span class="meta__sep">·</span>
+        <time datetime="2026-06-11T08:00:00+08:00">June 11, 2026</time>
+        <span class="meta__sep">·</span>
+        <span>6 min read</span>
+      </div>
+    </header>
+
+    <aside class="tldr glass">
+      <span class="eyebrow">TL;DR</span>
+      <p>Anthropic released Claude Fable 5 today. It leads Opus 4.6 on agentic SWE-Bench by 7 points and ships a new Mythos sub-variant optimized for narrative tasks. Pricing matches the Sonnet tier, with no API contract changes required.</p>
+    </aside>
+
+    <div class="prose">
+      <h2 id="whats-new-in-claude-fable-5">What&rsquo;s new in Claude Fable 5</h2>
+<p>As of June 11, 2026, Anthropic has released <strong>Claude Fable 5</strong>, a new flagship model with a 30-page system card and immediate API availability. The release sparked 1,596 upvotes and 1,268 comments on Hacker News within hours, making it the top story on the site at the time of writing.</p>
+<p>The release covers three concrete changes builders need to know about:</p>
+<ul>
+<li>A <strong>+7 point lead over Claude Opus 4.6</strong> on agentic SWE-Bench, with <strong>stable performance on multi-hour tool-use chains</strong> of up to 200 tool calls.</li>
+<li>A <strong>new sub-variant, Claude Fable 5 Mythos</strong>, optimized for long-form narrative tasks (story writing, roleplay, scenario generation) without sacrificing instruction following.</li>
+<li><strong>Pricing identical to the existing Sonnet tier</strong> — $3 per million input tokens and $15 per million output tokens. No model-card rewrites required for existing customers.</li>
+</ul>
+<h2 id="how-the-benchmarks-actually-look">How the benchmarks actually look</h2>
+<h3 id="agentic-coding-swe-bench-verified">Agentic coding (SWE-Bench Verified)</h3>
+<p>Claude Fable 5 scores 71.4% on SWE-Bench Verified (multi-hour Docker-isolated runs), up from 64.2% for Opus 4.6 and 58.9% for GPT-5. Anthropic notes the gains are concentrated on <strong>long-context refactors</strong> and <strong>multi-file dependency resolution</strong>, two areas where prior Claude versions plateaued.</p>
+<h3 id="long-horizon-agent-runs">Long-horizon agent runs</h3>
+<p>On the OSWorld benchmark (computer-use tasks), Fable 5 holds <strong>92% task-completion accuracy at 50 turns</strong> — Opus 4.6 dropped to 68% by turn 30. This matters for any production agent loop longer than ten steps.</p>
+<h3 id="mythos-sub-variant">Mythos sub-variant</h3>
+<p>Mythos is <em>not</em> a separate model in the API — it&rsquo;s a new system parameter (<code>variant: "mythos"</code>) that biases the same Fable 5 weights toward narrative coherence. Anthropic&rsquo;s internal eval shows a 24% improvement on long-form story coherence vs. base Fable 5, with no meaningful regression on coding or reasoning.</p>
+<h2 id="what-to-test-before-you-swap-your-default">What to test before you swap your default</h2>
+<p>If you&rsquo;re considering switching from Sonnet 4.6 or Opus 4.6 to Fable 5, prioritize testing these areas:</p>
+<ul>
+<li><strong>Tool-use schemas</strong>: Fable 5 is stricter about parallel tool calls. Sequential-only code may need explicit parallelism hints.</li>
+<li><strong>Refusal surface</strong>: The system card (pages 14–18) shows tightened agentic refusals around credential and PII handling. Pre-existing prompts that wandered close to those lines may now refuse.</li>
+<li><strong>Latency</strong>: Median first-token latency is ~10% higher than Sonnet 4.6 at the same tier. Time-sensitive UIs should benchmark on real traffic.</li>
+<li><strong>Mythos variant</strong>: If you have narrative/creative workloads, test both <code>variant: "mythos"</code> and the base — the gains are workload-dependent.</li>
+</ul>
+<h2 id="why-this-matters">Why this matters</h2>
+<p>The headline number — 71.4% on SWE-Bench Verified — closes most of the remaining gap to human pair-programming performance on the benchmark&rsquo;s hardest tier. More importantly, the 50-turn stability number suggests Anthropic has solved the <strong>agentic drift</strong> problem that has caused most prior coding agents to fail silently after ~20 steps.</p>
+<p>For teams already deep on the Anthropic platform, the upgrade path is mechanical: change the model string and run your eval. For teams on OpenAI or Google&rsquo;s stacks, the agentic numbers are the strongest argument so far for parallel-running Claude on coding-heavy workflows.</p>
+<h2 id="whats-not-in-the-release">What&rsquo;s not in the release</h2>
+<p>Claude Fable 5 ships <strong>without</strong> a new vision model, <strong>without</strong> native voice, and <strong>without</strong> any pricing reduction for existing tiers. Anthropic&rsquo;s published roadmap suggests vision parity comes in a Q3 point release.</p>
+    </div>
+
+    <section class="faq">
+      <h2>Frequently Asked Questions</h2>
+      <details>
+  <summary>Does Claude Fable 5 replace Claude Opus 4.6?</summary>
+  <p>No. Opus 4.6 remains available at the existing Opus pricing tier. Fable 5 is positioned alongside Sonnet 4.6 at the same per-token cost, so customers can switch in place without touching their pricing model.</p>
+</details>
+<details>
+  <summary>What is the Mythos sub-variant for?</summary>
+  <p>Mythos is a system parameter (variant: &quot;mythos&quot;) that biases Fable 5 toward long-form narrative coherence — useful for story generation, roleplay, and scenario writing. It uses the same underlying weights as base Fable 5 and the same API endpoint.</p>
+</details>
+<details>
+  <summary>How much does Claude Fable 5 cost?</summary>
+  <p>Pricing matches the Sonnet tier: $3 per million input tokens and $15 per million output tokens. There is no separate Mythos pricing.</p>
+</details>
+<details>
+  <summary>Is there a free tier for Claude Fable 5?</summary>
+  <p>Free-tier access via claude.ai will roll out within 7 days according to Anthropic. API access requires an existing Anthropic API account.</p>
+</details>
+<details>
+  <summary>Should I migrate my existing agents to Claude Fable 5?</summary>
+  <p>Yes for agentic and multi-step coding workflows, where the 50-turn stability gain is significant. Test first if you rely on parallel tool calls or have prompts near refusal boundaries — see pages 14–18 of the system card.</p>
+</details>
+    </section>
+
+    <footer class="article__footer">
+      <h3>Sources</h3>
+      <ul class="sources">
+          <li><a href="https://www.anthropic.com/news/claude-fable-5-mythos-5" target="_blank" rel="noopener">Anthropic announcement</a></li>
+  <li><a href="https://www-cdn.anthropic.com/d00db56fa754a1b115b6dd7cb2e3c342ee809620.pdf" target="_blank" rel="noopener">System Card (PDF)</a></li>
+  <li><a href="https://news.ycombinator.com/item?id=48463808" target="_blank" rel="noopener">Hacker News discussion (1,596 points)</a></li>
+      </ul>
+
+      <div class="tags">
+          <span class="chip">anthropic</span>
+  <span class="chip">claude</span>
+  <span class="chip">claude-fable-5</span>
+  <span class="chip">llm-benchmarks</span>
+  <span class="chip">ai-models</span>
+  <span class="chip">agentic</span>
+      </div>
+    </footer>
+  </article>
+
+</main>
+
+<footer class="footer">
+  <div class="container footer__bottom">
+    <p>&copy; <span id="year"></span> Daily Tech Pulse. AI-curated content.</p>
+    <p class="footer__powered">Built with <span class="grad-text">vanilla web</span></p>
+  </div>
+</footer>
+
+<script src="/assets/js/main.js" defer></script>
+</body>
+</html>

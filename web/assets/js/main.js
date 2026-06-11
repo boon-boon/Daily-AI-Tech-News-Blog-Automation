@@ -50,26 +50,33 @@
   // ---------------------------------------------------------------------------
   // 3. Reveal on scroll (IntersectionObserver, staggered per section)
   // ---------------------------------------------------------------------------
-  const revealEls = document.querySelectorAll('[data-reveal]');
-  if (revealEls.length && 'IntersectionObserver' in window && !reducedMotion) {
-    const io = new IntersectionObserver(
-      entries => {
-        entries.forEach((entry, i) => {
-          if (entry.isIntersecting) {
-            // Stagger items in the same observer batch
-            entry.target.style.transitionDelay = `${Math.min(i, 6) * 60}ms`;
-            entry.target.classList.add('is-visible');
-            io.unobserve(entry.target);
-          }
-        });
-      },
-      { rootMargin: '0px 0px -8% 0px', threshold: 0.05 }
-    );
-    revealEls.forEach(el => io.observe(el));
-  } else {
-    // Fallback: just show everything
-    revealEls.forEach(el => el.classList.add('is-visible'));
+  let io = null;
+  function applyReveal() {
+    const els = document.querySelectorAll('[data-reveal]:not(.is-visible)');
+    if (!els.length) return;
+    if ('IntersectionObserver' in window && !reducedMotion) {
+      if (!io) {
+        io = new IntersectionObserver(
+          entries => {
+            entries.forEach((entry, i) => {
+              if (entry.isIntersecting) {
+                entry.target.style.transitionDelay = `${Math.min(i, 6) * 60}ms`;
+                entry.target.classList.add('is-visible');
+                io.unobserve(entry.target);
+              }
+            });
+          },
+          { rootMargin: '0px 0px -8% 0px', threshold: 0.05 }
+        );
+      }
+      els.forEach(el => io.observe(el));
+    } else {
+      els.forEach(el => el.classList.add('is-visible'));
+    }
   }
+  applyReveal();
+  // Exposed so data-loader.js can re-apply after injecting new cards.
+  window.__reapplyReveal = applyReveal;
 
   // ---------------------------------------------------------------------------
   // 4. Filter tabs (visual-only client side; backend hooks up real data)

@@ -1,0 +1,176 @@
+{
+  "version": "1.0",
+  "generated_at": "2026-06-11T05:48:17+00:00",
+  "date_iso": "2026-06-11",
+  "date_human": "June 11, 2026",
+  "timezone": "Asia/Kuala_Lumpur",
+  "stats": {
+    "articles_published_total": 1250,
+    "sources_monitored": 52,
+    "daily_update_time": "08:00 MYT",
+    "automation_percent": 100
+  },
+  "featured": {
+    "id": "claude-fable-5-launch",
+    "title": "Anthropic ships Claude Fable 5 — early benchmarks and what changes for builders",
+    "category": "AI Models",
+    "excerpt": "Claude Fable 5 launched June 11, 2026 with a 30-page system card. Benchmarks, pricing, agentic improvements, and what to test before swapping your default LLM.",
+    "tldr": "Anthropic released Claude Fable 5 today. It leads Opus 4.6 on agentic SWE-Bench by 7 points and ships a new Mythos sub-variant optimized for narrative tasks. Pricing matches the Sonnet tier, with no API contract changes required.",
+    "permalink": "/posts/2026-06-11/claude-fable-5-launch.html",
+    "published_at": "2026-06-11T08:00:00+08:00",
+    "reading_time_min": 6,
+    "tags": [
+      "anthropic",
+      "claude",
+      "claude-fable-5",
+      "llm-benchmarks",
+      "ai-models",
+      "agentic"
+    ],
+    "sources": [
+      {
+        "label": "Anthropic announcement",
+        "url": "https://www.anthropic.com/news/claude-fable-5-mythos-5"
+      },
+      {
+        "label": "System Card (PDF)",
+        "url": "https://www-cdn.anthropic.com/d00db56fa754a1b115b6dd7cb2e3c342ee809620.pdf"
+      },
+      {
+        "label": "Hacker News discussion (1,596 points)",
+        "url": "https://news.ycombinator.com/item?id=48463808"
+      }
+    ],
+    "thumbnail": {
+      "c1": "#7c5cff",
+      "c2": "#00d4ff"
+    }
+  },
+  "latest": [],
+  "github_trending": [
+    {
+      "repo": "apple/container",
+      "url": "https://github.com/apple/container",
+      "description": "Native macOS container runtime with first-class Linux VM support.",
+      "language": "Swift",
+      "language_color": "#F05138",
+      "stars_total": 18400,
+      "stars_today": 1320,
+      "latest_release": "v0.6.0",
+      "is_release": true
+    },
+    {
+      "repo": "anthropics/claude-cookbooks",
+      "url": "https://github.com/anthropics/claude-cookbooks",
+      "description": "Official Anthropic recipes for Claude Fable 5, including agentic tool use patterns.",
+      "language": "Python",
+      "language_color": "#3572A5",
+      "stars_total": 31200,
+      "stars_today": 842,
+      "latest_release": "fable-5-launch",
+      "is_release": true
+    },
+    {
+      "repo": "vercel/next.js",
+      "url": "https://github.com/vercel/next.js",
+      "description": "The React framework — partial prerendering, server actions, App Router.",
+      "language": "TypeScript",
+      "language_color": "#3178c6",
+      "stars_total": 124000,
+      "stars_today": 482,
+      "latest_release": "v15.2"
+    },
+    {
+      "repo": "oven-sh/bun",
+      "url": "https://github.com/oven-sh/bun",
+      "description": "Fast all-in-one JavaScript runtime, bundler, and package manager.",
+      "language": "Zig",
+      "language_color": "#fff44f",
+      "stars_total": 78900,
+      "stars_today": 612,
+      "latest_release": "v1.2",
+      "is_release": true
+    }
+  ],
+  "categories": [
+    {
+      "slug": "ai-ml",
+      "name": "AI & ML",
+      "description": "Models, research, OpenAI, Anthropic, Google, Hugging Face.",
+      "article_count_today": 1,
+      "color_from": "#7c5cff",
+      "color_to": "#00d4ff"
+    },
+    {
+      "slug": "startups",
+      "name": "Startups",
+      "description": "Funding rounds, launches, and founders moving the industry.",
+      "article_count_today": 0,
+      "color_from": "#22d3ee",
+      "color_to": "#10b981"
+    },
+    {
+      "slug": "programming",
+      "name": "Programming",
+      "description": "Language and framework releases — Python, TS, Rust, Go.",
+      "article_count_today": 0,
+      "color_from": "#f59e0b",
+      "color_to": "#ef4444"
+    },
+    {
+      "slug": "open-source",
+      "name": "Open Source",
+      "description": "GitHub trending, releases, and the projects developers love.",
+      "article_count_today": 0,
+      "color_from": "#06b6d4",
+      "color_to": "#8b5cf6"
+    },
+    {
+      "slug": "cybersecurity",
+      "name": "Cybersecurity",
+      "description": "CVEs, breaches, and defensive techniques for engineers.",
+      "article_count_today": 0,
+      "color_from": "#ef4444",
+      "color_to": "#f59e0b"
+    },
+    {
+      "slug": "gadgets",
+      "name": "Gadgets",
+      "description": "Hardware reviews and GPU benchmarks for ML workloads.",
+      "article_count_today": 0,
+      "color_from": "#10b981",
+      "color_to": "#06b6d4"
+    }
+  ],
+  "community_pulse": {
+    "top_topics": [
+      "Claude Fable 5 launch",
+      "Apple's native container runtime",
+      "npm v12 breaking changes",
+      "German AI Overviews ruling"
+    ],
+    "best_takes": [
+      {
+        "source": "hn",
+        "author": "Philpax",
+        "quote": "The system card is unusually detailed about agentic refusals — page 14 onward is worth reading carefully before you swap your default planner.",
+        "engagement": "1,596 points · 1,268 comments",
+        "url": "https://news.ycombinator.com/item?id=48463808"
+      },
+      {
+        "source": "hn",
+        "author": "timsneath",
+        "quote": "Native containers on macOS without Rosetta finally closes the dev-prod parity gap for Apple Silicon teams.",
+        "engagement": "348 points · 135 comments",
+        "url": "https://news.ycombinator.com/item?id=48469658"
+      },
+      {
+        "source": "hn",
+        "author": "ahlCVA",
+        "quote": "If 'AI Overviews are Google's own words' holds on appeal, every generative search product in the EU has to rethink liability.",
+        "engagement": "203 points · 103 comments",
+        "url": "https://news.ycombinator.com/item?id=48470248"
+      }
+    ]
+  }
+}
