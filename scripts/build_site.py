@@ -43,7 +43,12 @@ ROOT = Path(__file__).resolve().parent.parent
 ARTICLES_DIR = ROOT / "data" / "articles"
 POSTS_DIR    = ROOT / "web" / "posts"
 TEMPLATE     = ROOT / "web" / "article.html"
-DAILY_JSON   = ROOT / "data" / "daily.json"
+
+# daily.json is written to TWO locations:
+#   - data/daily.json        → source of truth committed to the repo root
+#   - web/data/daily.json    → published copy GitHub Pages serves at /data/daily.json
+DAILY_JSON         = ROOT / "data" / "daily.json"
+DAILY_JSON_WEB_OUT = ROOT / "web" / "data" / "daily.json"
 
 BLOG_NAME    = "Daily Tech Pulse"
 BLOG_AUTHOR  = "Daily Tech Pulse Editorial"
@@ -256,11 +261,17 @@ def build_day(date: str) -> int:
     latest_date = max(d.name for d in ARTICLES_DIR.iterdir() if d.is_dir())
     if date == latest_date:
         previous = json.loads(DAILY_JSON.read_text()) if DAILY_JSON.exists() else None
-        DAILY_JSON.write_text(
-            json.dumps(render_daily_json(date, articles, previous), indent=2, ensure_ascii=False),
-            encoding="utf-8",
+        payload = json.dumps(
+            render_daily_json(date, articles, previous),
+            indent=2,
+            ensure_ascii=False,
         )
-        print(f"[ok] data/daily.json updated for {date}")
+        # Write to both the source-of-truth location and the publishable copy
+        # so GitHub Pages can serve /data/daily.json from the /web folder.
+        DAILY_JSON.write_text(payload, encoding="utf-8")
+        DAILY_JSON_WEB_OUT.parent.mkdir(parents=True, exist_ok=True)
+        DAILY_JSON_WEB_OUT.write_text(payload, encoding="utf-8")
+        print(f"[ok] data/daily.json + web/data/daily.json updated for {date}")
 
     return len(articles)
 
@@ -288,7 +299,7 @@ def main() -> int:
                 return 1
 
     total = sum(build_day(d) for d in dates)
-    print(f"\n✓ Built {total} article page(s) across {len(dates)} day(s).")
+    print(f"\nBuilt {total} article page(s) across {len(dates)} day(s).")
     return 0
 
 
