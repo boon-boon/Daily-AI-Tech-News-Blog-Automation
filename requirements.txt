@@ -12,9 +12,8 @@ beautifulsoup4>=4.12.3
 lxml>=5.2.0
 markdown>=3.6
 
-# LLM Integration
-openai>=1.30.0
-tiktoken>=0.7.0
+# LLM Integration (Google Gemini via Google AI Studio)
+google-genai>=0.3.0
 
 # Scheduling
 schedule>=1.2.2

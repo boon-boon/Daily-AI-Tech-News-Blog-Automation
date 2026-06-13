@@ -1,19 +1,22 @@
 """
-Thin wrapper around the OpenAI Chat Completions API with:
-  * tenacity-based retries on transient errors
-  * automatic JSON-mode response handling
-  * token-aware fallback model
+Thin wrapper around Google's Gemini API (Google AI Studio).
 
-The rest of the codebase only ever imports `LLMClient` from this module.
+Features:
+  * tenacity-based retries on transient errors
+  * Native JSON mode via `response_mime_type="application/json"`
+  * Fallback model + max_tokens overrides per call
+  * Single import surface — every other module only imports `LLMClient`
+    from this file, so swapping LLM providers is a one-file change.
 """
 
 from __future__ import annotations
 
 import json
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, Optional
 
-from openai import OpenAI
-from openai import APIError, APIConnectionError, RateLimitError
+from google import genai
+from google.genai import types
+from google.genai import errors as genai_errors
 from tenacity import (
     retry,
     retry_if_exception_type,
@@ -27,24 +30,61 @@ from src.utils.logger import get_logger
 logger = get_logger(__name__)
 
 
+# Errors worth retrying on (transient network / quota / 5xx).
+_RETRYABLE_ERRORS = (
+    genai_errors.APIError,
+    genai_errors.ServerError,
+    genai_errors.ClientError,
+    ConnectionError,
+    TimeoutError,
+)
+
+
 class LLMClient:
-    """OpenAI client wrapper with sane defaults."""
+    """Google Gemini client wrapper with sane defaults."""
 
     def __init__(self, model: Optional[str] = None) -> None:
-        if not settings.openai_api_key:
+        if not settings.gemini_api_key:
             raise RuntimeError(
-                "OPENAI_API_KEY is not configured. Set it in your .env file."
+                "GEMINI_API_KEY is not configured. Get a key at "
+                "https://aistudio.google.com/apikey and put it in your .env."
             )
-        self.client = OpenAI(api_key=settings.openai_api_key)
-        self.model = model or settings.openai_model
-        self.fallback_model = settings.openai_fallback_model
+        # The new google-genai SDK (replacement for google-generativeai).
+        self.client = genai.Client(api_key=settings.gemini_api_key)
+        self.model = model or settings.gemini_model
+        self.fallback_model = settings.gemini_fallback_model
+
+    # ------------------------------------------------------------------
+
+    def _build_config(
+        self,
+        *,
+        system_prompt: str,
+        json_mode: bool,
+        temperature: Optional[float],
+        max_tokens: Optional[int],
+    ) -> "types.GenerateContentConfig":
+        """Build the GenerateContentConfig for a single call."""
+        effective_temp = (
+            temperature if temperature is not None
+            else settings.gemini_temperature
+        )
+        kwargs: Dict[str, Any] = {
+            "system_instruction": system_prompt,
+            "temperature": effective_temp,
+            "max_output_tokens": max_tokens or settings.gemini_max_tokens,
+        }
+        if json_mode:
+            # Gemini's native JSON mode — guarantees a parseable JSON object.
+            kwargs["response_mime_type"] = "application/json"
+        return types.GenerateContentConfig(**kwargs)
+
+    # ------------------------------------------------------------------
 
     @retry(
         stop=stop_after_attempt(3),
         wait=wait_exponential(multiplier=2, min=2, max=20),
-        retry=retry_if_exception_type(
-            (APIError, APIConnectionError, RateLimitError)
-        ),
+        retry=retry_if_exception_type(_RETRYABLE_ERRORS),
         reraise=True,
     )
     def chat(
@@ -57,22 +97,23 @@ class LLMClient:
         max_tokens: Optional[int] = None,
         model: Optional[str] = None,
     ) -> str:
-        """Single-turn chat completion. Returns the assistant's text content."""
-        kwargs: Dict[str, Any] = {
-            "model": model or self.model,
-            "messages": [
-                {"role": "system", "content": system_prompt},
-                {"role": "user", "content": user_prompt},
-            ],
-            "temperature": temperature
-                if temperature is not None else settings.openai_temperature,
-            "max_tokens": max_tokens or settings.openai_max_tokens,
-        }
-        if json_mode:
-            kwargs["response_format"] = {"type": "json_object"}
+        """Single-turn generation. Returns the model's text content."""
+        config = self._build_config(
+            system_prompt=system_prompt,
+            json_mode=json_mode,
+            temperature=temperature,
+            max_tokens=max_tokens,
+        )
+        response = self.client.models.generate_content(
+            model=model or self.model,
+            contents=user_prompt,
+            config=config,
+        )
+        # `response.text` joins all text parts of the first candidate.
+        # Returns "" if blocked by safety filter or no textual content.
+        return response.text or ""
 
-        response = self.client.chat.completions.create(**kwargs)
-        return response.choices[0].message.content or ""
+    # ------------------------------------------------------------------
 
     def chat_json(
         self,
@@ -93,7 +134,7 @@ class LLMClient:
         try:
             return json.loads(raw)
         except json.JSONDecodeError:
-            logger.warning("LLM returned non-JSON content; attempting recovery")
+            logger.warning("Gemini returned non-JSON content; attempting recovery")
             # crude recovery: find first '{' and last '}'
             start, end = raw.find("{"), raw.rfind("}")
             if start != -1 and end != -1 and end > start:

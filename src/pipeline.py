@@ -37,8 +37,8 @@ class DailyPipeline:
         self._digest_gen: DigestGenerator | None = None
 
     # ------------------------------------------------------------------
-    # Lazy generator init so a missing OPENAI_API_KEY only fails when
-    # actually needed (e.g. allows `--list-sources` style commands).
+    # Lazy generator init so a missing GEMINI_API_KEY only fails when
+    # actually needed (e.g. allows `--fetch-only` to work without a key).
     # ------------------------------------------------------------------
     @property
     def article_gen(self) -> ArticleGenerator:
