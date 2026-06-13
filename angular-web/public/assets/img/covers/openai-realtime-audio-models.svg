@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" role="img" aria-label="OpenAI realtime audio cover">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1200" y2="800" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#10a37f"/>
+      <stop offset="1" stop-color="#1bd4ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#g)"/>
+  <g fill="#ffffff" opacity="0.10">
+    <rect x="760" y="300" width="26" height="120" rx="13"/>
+    <rect x="812" y="250" width="26" height="220" rx="13"/>
+    <rect x="864" y="190" width="26" height="340" rx="13"/>
+    <rect x="916" y="270" width="26" height="180" rx="13"/>
+    <rect x="968" y="220" width="26" height="280" rx="13"/>
+    <rect x="1020" y="300" width="26" height="120" rx="13"/>
+  </g>
+  <rect x="28" y="28" width="1144" height="744" rx="10" fill="none" stroke="#ffffff" stroke-opacity="0.25"/>
+  <g transform="translate(64,70)">
+    <rect width="170" height="44" rx="22" fill="#ffffff" fill-opacity="0.18"/>
+    <text x="24" y="29" font-family="Georgia, 'Times New Roman', serif" font-size="20" letter-spacing="1.5" fill="#ffffff">AI MODELS</text>
+  </g>
+  <text x="62" y="590" font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="128" fill="#ffffff">OpenAI</text>
+  <text x="66" y="672" font-family="Georgia, 'Times New Roman', serif" font-size="44" fill="#ffffff" fill-opacity="0.9">Realtime audio</text>
+  <text x="1136" y="744" text-anchor="end" font-family="Georgia, 'Times New Roman', serif" font-size="26" fill="#ffffff" fill-opacity="0.8">TechPulse</text>
+</svg>

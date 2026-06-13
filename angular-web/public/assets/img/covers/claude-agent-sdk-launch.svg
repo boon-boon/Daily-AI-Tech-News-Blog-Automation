@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" role="img" aria-label="Claude Agent SDK cover">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1200" y2="800" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#d97757"/>
+      <stop offset="1" stop-color="#7c5cff"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" fill="url(#g)"/>
+  <g fill="#ffffff" opacity="0.09">
+    <circle cx="1000" cy="150" r="320"/>
+    <circle cx="1090" cy="660" r="170"/>
+  </g>
+  <rect x="28" y="28" width="1144" height="744" rx="10" fill="none" stroke="#ffffff" stroke-opacity="0.25"/>
+  <g transform="translate(64,70)">
+    <rect width="250" height="44" rx="22" fill="#ffffff" fill-opacity="0.18"/>
+    <text x="24" y="29" font-family="Georgia, 'Times New Roman', serif" font-size="20" letter-spacing="1.5" fill="#ffffff">DEVELOPER TOOLS</text>
+  </g>
+  <text x="62" y="590" font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="128" fill="#ffffff">Claude</text>
+  <text x="66" y="672" font-family="Georgia, 'Times New Roman', serif" font-size="44" fill="#ffffff" fill-opacity="0.9">Agent SDK</text>
+  <text x="1136" y="744" text-anchor="end" font-family="Georgia, 'Times New Roman', serif" font-size="26" fill="#ffffff" fill-opacity="0.8">TechPulse</text>
+</svg>

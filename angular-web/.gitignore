@@ -1,0 +1,13 @@
+# Angular / Node
+/node_modules
+/dist
+/.angular/cache
+/tmp
+npm-debug.log*
+
+# Synced data is generated from ../data by `npm run sync-data`
+/public/data
+
+# Editor
+.DS_Store
+*.local
