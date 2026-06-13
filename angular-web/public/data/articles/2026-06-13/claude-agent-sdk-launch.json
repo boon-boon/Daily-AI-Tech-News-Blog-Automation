@@ -1,0 +1,33 @@
+{
+  "slug": "claude-agent-sdk-launch",
+  "title": "Anthropic's Claude Agent SDK brings MCP and sub-agents to TypeScript and Python",
+  "category": "Developer Tools",
+  "tags": ["anthropic", "claude", "agent-sdk", "mcp", "sub-agents", "typescript", "python"],
+  "meta_description": "Anthropic's Claude Agent SDK gives developers a TypeScript and Python toolchain that wires native Model Context Protocol servers and sub-agents directly into Claude.",
+  "tldr": "Anthropic introduced the Claude Agent SDK, a TypeScript and Python toolchain for building agents on Claude Sonnet and Opus. It integrates native Model Context Protocol (MCP) servers and sub-agents directly, giving teams a supported path to multi-tool, multi-step agents instead of hand-rolled glue code.",
+  "body_markdown": "## What it is\n\nAnthropic introduced the **Claude Agent SDK**, a specialized toolchain for **TypeScript and Python** designed to integrate native **Model Context Protocol (MCP) servers** and **sub-agents** directly with Claude Sonnet and Opus models. It packages the patterns teams were previously assembling by hand into a supported library.\n\n## Why MCP and sub-agents matter\n\nTwo ideas do the heavy lifting. **MCP** is the open protocol for connecting models to tools and data sources through a consistent interface, so an agent can reach files, APIs, and services without bespoke integration for each one. **Sub-agents** let a primary agent delegate a scoped task to a specialized child agent, which keeps context focused and makes complex workflows easier to reason about. Building both into the SDK means developers get orchestration, tool wiring, and delegation as first-class features.\n\n## Where it fits in June 2026\n\nThe SDK lands in a month defined by agents moving from demos to real execution. It also slots into a more competitive coding-agent market, with Microsoft and Google pushing their own AI coding models and OpenAI putting Codex in front of enterprises. A supported, native SDK is Anthropic's bid to be the default substrate teams build durable agents on.\n\n## What to watch\n\nThe practical questions are how the SDK handles long-running and parallel tool calls, how sub-agent context and cost are managed at scale, and how tightly the TypeScript and Python surfaces track each other as the API evolves.",
+  "faq": [
+    {
+      "question": "What languages does the Claude Agent SDK support?",
+      "answer": "It ships for TypeScript and Python, the two most common ecosystems for building AI agents and backend services."
+    },
+    {
+      "question": "What is Model Context Protocol (MCP)?",
+      "answer": "MCP is an open protocol for connecting models to external tools and data through a consistent interface. The SDK integrates native MCP servers so agents can use tools without custom glue for each one."
+    },
+    {
+      "question": "What are sub-agents used for?",
+      "answer": "Sub-agents let a main agent delegate a scoped task to a specialized child agent. This keeps each agent's context focused and makes multi-step workflows easier to build and debug."
+    }
+  ],
+  "sources": [
+    { "label": "devFlokers — Open-source AI roundup, June 2026", "url": "https://www.devflokers.com/blog/open-source-ai-roundup-june-2026" }
+  ],
+  "image_suggestions": [
+    { "placement": "after H1", "description": "Diagram of a Claude agent delegating to MCP tool servers and sub-agents.", "alt_text": "Claude Agent SDK orchestrating MCP servers and sub-agents" }
+  ],
+  "thumbnail": { "c1": "#d97757", "c2": "#7c5cff" },
+  "published_at": "2026-06-13T08:00:00+08:00",
+  "reading_time_min": 4,
+  "importance_score": 7
+}
