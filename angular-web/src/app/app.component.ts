@@ -1,5 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+
+import { ThemeService } from './services/theme.service';
 
 /**
  * Root shell: sticky header, routed content, and footer.
@@ -24,7 +26,20 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
           <a routerLink="/category/developer-tools" routerLinkActive="active">Developer Tools</a>
           <a routerLink="/category/cloud" routerLinkActive="active">Cloud &amp; Infra</a>
           <a routerLink="/category/open-source" routerLinkActive="active">Open Source</a>
+          <a routerLink="/archive" routerLinkActive="active" class="nav-search">
+            <span aria-hidden="true">⌕</span> Search
+          </a>
         </nav>
+
+        <button
+          type="button"
+          class="theme-toggle"
+          (click)="theme.cycle()"
+          [attr.aria-label]="'Theme: ' + theme.preference() + '. Change theme.'"
+          [title]="'Theme: ' + theme.preference()"
+        >
+          <span aria-hidden="true">{{ themeIcon() }}</span>
+        </button>
       </div>
     </header>
 
@@ -40,11 +55,22 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
           8:00 AM Malaysia time. Stories are written and SEO-tuned by an LLM
           pipeline from official sources.
         </p>
-        <p class="footer-meta">© {{ year }} TechPulse · Today · Topics · About · Sources</p>
+        <nav class="footer-links" aria-label="Footer">
+          <a routerLink="/">Today</a>
+          <a routerLink="/archive">Archive</a>
+          <a routerLink="/about">How it's made</a>
+          <a href="feed.xml" target="_blank" rel="noopener">RSS</a>
+        </nav>
+        <p class="footer-meta">© {{ year }} TechPulse</p>
       </div>
     </footer>
   `,
 })
 export class App {
   protected readonly year = new Date().getFullYear();
+  protected readonly theme = inject(ThemeService);
+
+  protected themeIcon(): string {
+    return { system: '◐', light: '☀', dark: '☾' }[this.theme.preference()];
+  }
 }

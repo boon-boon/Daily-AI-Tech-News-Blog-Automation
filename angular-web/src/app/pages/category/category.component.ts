@@ -12,7 +12,8 @@ import { map } from 'rxjs/operators';
 
 import { NewsService } from '../../services/news.service';
 import { SeoService } from '../../services/seo.service';
-import { CategorySummary, FeaturedRef } from '../../models/daily.model';
+import { CategorySummary } from '../../models/daily.model';
+import { ArchiveEntry } from '../../models/archive.model';
 import { permalinkToCommands } from '../../utils/links';
 
 /**
@@ -38,7 +39,11 @@ const CATEGORY_KEYWORDS: Record<string, string[]> = {
     <div class="container">
       @if (category(); as c) {
         <span class="kicker" style="margin-top:8px;display:inline-block">
-          {{ c.article_count_today }} stories today
+          {{ articles().length }}
+          {{ articles().length === 1 ? 'story' : 'stories' }}
+          @if (c.article_count_today) {
+            · {{ c.article_count_today }} today
+          }
         </span>
         <h1 class="article-title">{{ c.name }}</h1>
         <p class="article-dek" style="max-width:640px">{{ c.description }}</p>
@@ -55,7 +60,7 @@ const CATEGORY_KEYWORDS: Record<string, string[]> = {
                     <div class="byline">
                       <strong>TechPulse</strong>
                       <span class="dot">·</span>
-                      <span>{{ a.published_at | date: 'MMM d' }}</span>
+                      <span>{{ a.published_at | date: 'MMM d, y' }}</span>
                       <span class="dot">·</span>
                       <span>{{ a.reading_time_min || 4 }} min read</span>
                     </div>
@@ -65,6 +70,7 @@ const CATEGORY_KEYWORDS: Record<string, string[]> = {
                     [routerLink]="route(a.permalink)"
                     [style.background]="thumb(a)"
                     aria-hidden="true"
+                    tabindex="-1"
                   >
                     @if (a.image) {
                       <img class="thumb-img" [src]="a.image" alt="" loading="lazy" (error)="onImgError($event)" />
@@ -75,8 +81,8 @@ const CATEGORY_KEYWORDS: Record<string, string[]> = {
             </div>
           } @else {
             <div class="state">
-              <p>No stories in this section today. Check back after the 8:00 AM refresh.</p>
-              <a class="btn-pill" routerLink="/">Back to home</a>
+              <p>Nothing filed under this section yet. Check back after the 8:00 AM refresh.</p>
+              <a class="btn-pill" routerLink="/archive">Browse the archive</a>
             </div>
           }
         </section>
@@ -95,19 +101,25 @@ export class CategoryComponent implements OnInit {
   private readonly seo = inject(SeoService);
 
   protected readonly category = signal<CategorySummary | null>(null);
-  protected readonly articles = signal<FeaturedRef[]>([]);
+  protected readonly articles = signal<ArchiveEntry[]>([]);
 
   ngOnInit(): void {
     this.seo.clearJsonLd();
-    combineLatest([this.activatedRoute.paramMap, this.news.getDaily()])
+    // Category metadata (name, blurb, today's count) comes from the daily feed;
+    // the article list comes from the cross-date archive, so a section shows
+    // everything ever filed under it rather than just today's stories.
+    combineLatest([
+      this.activatedRoute.paramMap,
+      this.news.getDaily(),
+      this.news.getArchive(),
+    ])
       .pipe(
-        map(([params, daily]) => {
+        map(([params, daily, archive]) => {
           const slug = params.get('slug') ?? '';
           const cat = daily.categories.find((c) => c.slug === slug) ?? null;
-          const pool = [daily.featured, ...daily.latest];
           const keywords = CATEGORY_KEYWORDS[slug] ?? [slug.replace(/-/g, ' ')];
           const matches = cat
-            ? pool.filter((a) => {
+            ? (archive.articles ?? []).filter((a) => {
                 const ac = (a.category ?? '').toLowerCase();
                 return keywords.some((k) => ac.includes(k));
               })
@@ -132,7 +144,7 @@ export class CategoryComponent implements OnInit {
     return permalinkToCommands(permalink);
   }
 
-  protected thumb(a: FeaturedRef): string {
+  protected thumb(a: ArchiveEntry): string {
     const t = a.thumbnail;
     return t
       ? `linear-gradient(135deg, ${t.c1}, ${t.c2})`

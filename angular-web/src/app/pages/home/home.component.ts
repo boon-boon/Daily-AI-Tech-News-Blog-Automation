@@ -48,6 +48,7 @@ import { permalinkToCommands } from '../../utils/links';
             [routerLink]="route(d.featured.permalink)"
             [style.background]="thumb(d.featured)"
             aria-hidden="true"
+            tabindex="-1"
           >
             @if (d.featured.image) {
               <img class="thumb-img" [src]="d.featured.image" alt="" loading="lazy" (error)="onImgError($event)" />
@@ -56,8 +57,8 @@ import { permalinkToCommands } from '../../utils/links';
         </section>
 
         <div class="feedwrap">
-          <main class="feed">
-            <div class="feed__head">Latest</div>
+          <section class="feed" aria-labelledby="feed-head">
+            <div class="feed__head" id="feed-head">Latest</div>
             @for (a of d.latest; track a.id) {
               <article class="story">
                 <a class="story__text" [routerLink]="route(a.permalink)">
@@ -77,6 +78,7 @@ import { permalinkToCommands } from '../../utils/links';
                   [routerLink]="route(a.permalink)"
                   [style.background]="thumb(a)"
                   aria-hidden="true"
+                  tabindex="-1"
                 >
                   @if (a.image) {
                     <img class="thumb-img" [src]="a.image" alt="" loading="lazy" (error)="onImgError($event)" />
@@ -84,7 +86,7 @@ import { permalinkToCommands } from '../../utils/links';
                 </a>
               </article>
             }
-          </main>
+          </section>
 
           <aside class="rail" aria-label="More from TechPulse">
             <!-- Trending releases — ranked by stars (the ordinal signature) -->

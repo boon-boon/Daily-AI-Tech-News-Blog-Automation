@@ -48,6 +48,17 @@ import { MarkdownPipe } from '../../pipes/markdown.pipe';
           }
         </div>
 
+        @if (a.sources?.length) {
+          <p class="source-credit">
+            <span class="source-credit__lbl">Reported from</span>
+            @for (s of a.sources ?? []; track s.url; let last = $last) {
+              <a [href]="s.url" target="_blank" rel="noopener nofollow">{{
+                sourceHost(s.url)
+              }}</a>@if (!last) {<span aria-hidden="true">, </span>}
+            }
+          </p>
+        }
+
         <!-- Lead image placeholder -->
         @if (leadImage(a); as img) {
           <figure class="img-placeholder">
@@ -133,6 +144,15 @@ export class ArticleComponent implements OnInit {
         this.loading.set(false);
         if (a) this.applySeo(a);
       });
+  }
+
+  /** Bare hostname for the compact credit line, e.g. "anthropic.com". */
+  protected sourceHost(url: string): string {
+    try {
+      return new URL(url).hostname.replace(/^www\./, '');
+    } catch {
+      return url;
+    }
   }
 
   /** Lead image suggestion (the one placed "after H1"), if any. */

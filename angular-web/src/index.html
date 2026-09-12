@@ -6,8 +6,25 @@
     <base href="/" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="TechPulse Daily — automated, SEO-optimized AI and developer news, refreshed every morning at 8:00 AM Malaysia time." />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#121212" media="(prefers-color-scheme: dark)" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="alternate" type="application/rss+xml" title="TechPulse Daily" href="feed.xml" />
+    <script>
+      // Apply the saved theme before first paint. Angular bootstraps too late
+      // to prevent a white flash on a dark-themed page, so this has to be an
+      // inline, synchronous script in <head>.
+      (function () {
+        try {
+          var t = localStorage.getItem('techpulse-theme');
+          if (t === 'dark' || t === 'light') {
+            document.documentElement.setAttribute('data-theme', t);
+          }
+        } catch (e) {
+          /* private mode / blocked storage: fall back to the system theme */
+        }
+      })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link

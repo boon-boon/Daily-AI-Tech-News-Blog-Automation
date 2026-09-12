@@ -32,6 +32,9 @@ jobs:
       - name: Validate article JSON against schema
         run: python scripts/validate_articles.py
 
+      - name: Verify article source links resolve
+        run: python scripts/verify_sources.py
+
       - name: Set up Node
         uses: actions/setup-node@v4
         with:

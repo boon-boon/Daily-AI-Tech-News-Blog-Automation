@@ -18,6 +18,20 @@ export const routes: Routes = [
     title: 'TechPulse Daily — AI & Developer News',
   },
   {
+    path: 'archive',
+    loadComponent: () =>
+      import('./pages/archive/archive.component').then(
+        (m) => m.ArchiveComponent,
+      ),
+    title: 'Archive — TechPulse Daily',
+  },
+  {
+    path: 'about',
+    loadComponent: () =>
+      import('./pages/about/about.component').then((m) => m.AboutComponent),
+    title: 'How TechPulse is made — TechPulse Daily',
+  },
+  {
     path: 'category/:slug',
     loadComponent: () =>
       import('./pages/category/category.component').then(

@@ -5,6 +5,7 @@ import { catchError, map, shareReplay } from 'rxjs/operators';
 
 import { DailyData } from '../models/daily.model';
 import { Article } from '../models/article.model';
+import { ArchiveIndex } from '../models/archive.model';
 
 /**
  * Fetches the data produced by the Python automation backend.
@@ -43,6 +44,28 @@ export class NewsService {
     return this.http
       .get<Article>(`${this.dataBase}/articles/${date}/${slug}.json`)
       .pipe(catchError(() => of(null)));
+  }
+
+  /** archive.json is fetched once per page load and reused across searches. */
+  private archive$?: Observable<ArchiveIndex>;
+
+  /**
+   * Load the full cross-date article index (every article ever published).
+   * Backs the archive page and site search. Falls back to an empty index so a
+   * missing file degrades to "no results" rather than a broken page.
+   */
+  getArchive(): Observable<ArchiveIndex> {
+    if (!this.archive$) {
+      this.archive$ = this.http
+        .get<ArchiveIndex>(`${this.dataBase}/archive.json`)
+        .pipe(
+          catchError(() =>
+            of({ version: '1.0', generated_at: '', count: 0, articles: [] }),
+          ),
+          shareReplay({ bufferSize: 1, refCount: false }),
+        );
+    }
+    return this.archive$;
   }
 
   /** Articles published on a given category, derived from the daily feed. */
