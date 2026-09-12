@@ -1,0 +1,85 @@
+name: Deploy to GitHub Pages
+
+# Builds the Angular frontend and publishes it to GitHub Pages.
+#
+# Runs on every push to main — which means once the daily scheduled task
+# commits and pushes the new articles, the live site redeploys itself with
+# no extra step.
+#
+# The static `web/` output is NOT deployed; the Angular build under
+# angular-web/dist/techpulse/browser is the published site.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Let a running deploy finish, but queue only the newest pending one.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt
+
+      # Gate: a malformed article JSON fails the deploy instead of
+      # silently publishing a broken page.
+      - name: Validate article JSON against schema
+        run: python scripts/validate_articles.py
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+          cache-dependency-path: angular-web/package-lock.json
+
+      - name: Install Node dependencies
+        working-directory: angular-web
+        run: npm ci
+
+      # Copies ../data into public/data. Must run before the build:
+      # the prerenderer reads public/data/articles to discover every
+      # /posts/<date>/<slug> route it needs to bake.
+      - name: Sync data into the Angular app
+        working-directory: angular-web
+        run: npm run sync-data
+
+      # A project Pages site is served from /<repo-name>/, so the base
+      # href has to match or every asset and route 404s.
+      - name: Build (static prerender)
+        working-directory: angular-web
+        run: npx ng build --base-href "/${{ github.event.repository.name }}/"
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: angular-web/dist/techpulse/browser
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

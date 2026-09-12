@@ -30,3 +30,6 @@ output/
 .pytest_cache/
 .coverage
 htmlcov/
+
+# Local convenience scripts (personal, not part of the project)
+/run.bat
