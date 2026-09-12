@@ -1,6 +1,6 @@
 {
   "version": "1.0",
-  "generated_at": "2026-06-29T21:20:14+08:00",
+  "generated_at": "2026-09-12T05:59:50+00:00",
   "date_iso": "2026-06-13",
   "date_human": "June 13, 2026",
   "timezone": "Asia/Kuala_Lumpur",
@@ -36,7 +36,8 @@
     "thumbnail": {
       "c1": "#0a84ff",
       "c2": "#5e5ce6"
-    }
+    },
+    "image": "assets/img/covers/apple-foundation-models-free-wwdc-2026.svg"
   },
   "latest": [
     {
@@ -66,7 +67,8 @@
       "thumbnail": {
         "c1": "#d97757",
         "c2": "#7c5cff"
-      }
+      },
+      "image": "assets/img/covers/claude-agent-sdk-launch.svg"
     },
     {
       "id": "openai-oracle-universal-credits",
@@ -94,7 +96,8 @@
       "thumbnail": {
         "c1": "#c74634",
         "c2": "#10a37f"
-      }
+      },
+      "image": "assets/img/covers/openai-oracle-universal-credits.svg"
     },
     {
       "id": "openai-realtime-audio-models",
@@ -122,7 +125,8 @@
       "thumbnail": {
         "c1": "#10a37f",
         "c2": "#1bd4ff"
-      }
+      },
+      "image": "assets/img/covers/openai-realtime-audio-models.svg"
     },
     {
       "id": "gemini-3-5-pro-status",
@@ -154,7 +158,8 @@
       "thumbnail": {
         "c1": "#4285f4",
         "c2": "#9b72cb"
-      }
+      },
+      "image": "assets/img/covers/gemini-3-5-pro-status.svg"
     }
   ],
   "github_trending": [

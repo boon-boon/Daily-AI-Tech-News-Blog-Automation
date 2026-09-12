@@ -1,20 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" width="1200" height="800" role="img" aria-label="Gemini 3.5 Pro cover">
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="Gemini 3.5 Pro still not GA a month after Google&#x27;s I/O promise">
   <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="1200" y2="800" gradientUnits="userSpaceOnUse">
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#4285f4"/>
       <stop offset="1" stop-color="#9b72cb"/>
     </linearGradient>
+    <radialGradient id="glow" cx="0.76" cy="0.16" r="0.7">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.26"/>
+      <stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="scrim" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#000000" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="0.34"/>
+    </linearGradient>
+    <!-- Full-bleed dot texture: reads as intentional at every crop. -->
+    <pattern id="dots" width="44" height="44" patternUnits="userSpaceOnUse">
+      <circle cx="3" cy="3" r="2.5" fill="#ffffff" fill-opacity="0.11"/>
+    </pattern>
   </defs>
-  <rect width="1200" height="800" fill="url(#g)"/>
-  <g fill="#ffffff" opacity="0.10">
-    <path d="M960 140 C960 280 1080 320 1180 320 C1080 320 960 360 960 500 C960 360 840 320 740 320 C840 320 960 280 960 140 Z"/>
-  </g>
-  <rect x="28" y="28" width="1144" height="744" rx="10" fill="none" stroke="#ffffff" stroke-opacity="0.25"/>
-  <g transform="translate(64,70)">
-    <rect width="170" height="44" rx="22" fill="#ffffff" fill-opacity="0.18"/>
-    <text x="24" y="29" font-family="Georgia, 'Times New Roman', serif" font-size="20" letter-spacing="1.5" fill="#ffffff">AI MODELS</text>
-  </g>
-  <text x="62" y="590" font-family="Georgia, 'Times New Roman', serif" font-weight="700" font-size="128" fill="#ffffff">Gemini</text>
-  <text x="66" y="672" font-family="Georgia, 'Times New Roman', serif" font-size="44" fill="#ffffff" fill-opacity="0.9">3.5 Pro preview</text>
-  <text x="1136" y="744" text-anchor="end" font-family="Georgia, 'Times New Roman', serif" font-size="26" fill="#ffffff" fill-opacity="0.8">TechPulse</text>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#dots)"/>
+  <rect width="1200" height="630" fill="url(#glow)"/>
+  <!-- The scrim keeps white type legible over light gradients too. -->
+  <rect width="1200" height="630" fill="url(#scrim)"/>
+
+  <text x="600" y="300" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="62" font-weight="700" fill="#ffffff" fill-opacity="0.97">TechPulse.</text>
+
+  <rect x="560" y="336" width="80" height="3" rx="1.5" fill="#ffffff" fill-opacity="0.55"/>
+
+  <text x="600" y="384" text-anchor="middle" font-family="system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif" font-size="26" font-weight="600" letter-spacing="3" fill="#ffffff" fill-opacity="0.85">AI MODELS</text>
 </svg>

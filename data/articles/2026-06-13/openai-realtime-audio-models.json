@@ -2,7 +2,14 @@
   "slug": "openai-realtime-audio-models",
   "title": "OpenAI ships three real-time audio models for voice agents",
   "category": "AI Models",
-  "tags": ["openai", "audio", "voice-agents", "speech-to-text", "translation", "realtime"],
+  "tags": [
+    "openai",
+    "audio",
+    "voice-agents",
+    "speech-to-text",
+    "translation",
+    "realtime"
+  ],
   "meta_description": "OpenAI launched three real-time audio models aimed at conversational agents, live translation, and transcription, pushing voice from a feature toward core infrastructure.",
   "tldr": "OpenAI released three real-time audio models targeting conversational agents, translation, and transcription. The split into purpose-built models signals that voice is being treated as production infrastructure for agents rather than a single bolt-on speech feature.",
   "body_markdown": "## What launched\n\nOpenAI introduced **three real-time audio models**, each pointed at a distinct job: powering conversational agents, performing live translation, and handling transcription. Rather than one general speech model, the lineup splits voice into specialized building blocks that developers can compose.\n\n## Why three models, not one\n\nVoice workloads pull in different directions. A conversational agent needs low latency and natural turn-taking; translation needs accuracy across languages and faithful meaning under time pressure; transcription needs robustness to noise and speaker variety. Shipping separate, real-time models lets teams optimize for the constraint that actually matters in their product instead of compromising across all three.\n\n## The bigger trend\n\nThe release fits the dominant June 2026 theme of AI moving toward **agents and real-world execution**. Real-time audio is a core dependency for that: an agent that can listen, respond, translate, and transcribe in the moment is far more useful in support, accessibility, and live collaboration than one limited to text. Treating audio as infrastructure, with low-latency primitives, is what makes those experiences feel responsive rather than laggy.\n\n## What to watch\n\nKey questions for builders are end-to-end latency under real network conditions, language coverage and quality for the translation model, pricing for always-on streaming workloads, and how cleanly the three models hand off to each other inside a single agent loop.",
@@ -21,13 +28,24 @@
     }
   ],
   "sources": [
-    { "label": "Crescendo AI — Latest AI news, June 2026", "url": "https://www.crescendo.ai/news/latest-ai-news-and-updates" }
+    {
+      "label": "Crescendo AI — Latest AI news, June 2026",
+      "url": "https://www.crescendo.ai/news/latest-ai-news-and-updates"
+    }
   ],
   "image_suggestions": [
-    { "placement": "after H1", "description": "Waveform UI showing a live voice agent transcribing and translating speech.", "alt_text": "Real-time voice agent transcribing and translating audio" }
+    {
+      "placement": "after H1",
+      "description": "Waveform UI showing a live voice agent transcribing and translating speech.",
+      "alt_text": "Real-time voice agent transcribing and translating audio"
+    }
   ],
-  "thumbnail": { "c1": "#10a37f", "c2": "#1bd4ff" },
+  "thumbnail": {
+    "c1": "#10a37f",
+    "c2": "#1bd4ff"
+  },
   "published_at": "2026-06-13T08:00:00+08:00",
   "reading_time_min": 4,
-  "importance_score": 7
+  "importance_score": 7,
+  "og_image": "https://boon-boon.github.io/Daily-AI-Tech-News-Blog-Automation/assets/img/covers/openai-realtime-audio-models.svg"
 }

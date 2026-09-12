@@ -2,7 +2,14 @@
   "slug": "apple-foundation-models-free-wwdc-2026",
   "title": "Apple opens Foundation Models to developers free at WWDC 2026",
   "category": "Developer Tools",
-  "tags": ["apple", "wwdc-2026", "foundation-models", "on-device-ai", "private-cloud-compute", "swift"],
+  "tags": [
+    "apple",
+    "wwdc-2026",
+    "foundation-models",
+    "on-device-ai",
+    "private-cloud-compute",
+    "swift"
+  ],
   "meta_description": "At WWDC 2026 Apple opened its Foundation Models framework: free on-device and Private Cloud Compute access, image input, and third-party model calls through Swift.",
   "tldr": "At its 2026 Platforms State of the Union, Apple removed the cost barrier to building AI features on its platforms. Developers with fewer than two million first-time App Store downloads get free access to Apple Foundation Models on Private Cloud Compute, plus image input, server-side model calls, and a new multi-agent Dynamic Profiles system. Apple also confirmed the framework goes open source later this summer.",
   "body_markdown": "## What Apple announced\n\nAt the WWDC 2026 Platforms State of the Union on June 9, Apple detailed a major expansion of its Foundation Models framework, the on-device and cloud AI layer it first shipped to developers a year earlier. The headline change is economic: developers with **fewer than two million first-time App Store downloads** now get **free access to Apple Foundation Models running on Private Cloud Compute**, removing per-request infrastructure cost as a barrier to shipping AI features.\n\n## What's new in the framework\n\nThe update is more than a pricing change. Apple is widening what the framework can actually do:\n\n- **Image input.** Models can now take images as well as text, opening up document understanding, visual Q&A, and in-app vision features without a third-party dependency.\n- **Server-side model integration.** A new path lets developers call third-party models such as Claude and Gemini through the same Swift API they already use for Apple's own models, so the calling code stays consistent regardless of which model answers.\n- **Dynamic Profiles.** A new system for composing multi-agent workflows, letting an app route a task across specialized model configurations rather than a single prompt.\n\n## Going open source\n\nApple also confirmed that the Foundation Models framework will be released as **open source later this summer**. For a company that historically kept its ML stack closed, that is a notable shift, and it gives the wider Swift ecosystem a chance to inspect, extend, and self-host parts of the toolchain.\n\n## Why it matters for builders\n\nThe combination of free Private Cloud Compute access and a single Swift API that can reach Apple, Claude, and Gemini models lowers the activation energy for adding AI to an app. Small and indie developers, who are most sensitive to per-token costs, are the clearest winners. The open-source commitment, if it lands as described, also reduces the lock-in risk of betting an app's AI features on a closed framework.\n\n## What to watch next\n\nThe practical questions now are rate limits and latency on Private Cloud Compute under real traffic, the exact licensing terms when the framework opens up, and how the third-party model routing is billed when an app calls Claude or Gemini rather than Apple's own models.",
@@ -21,13 +28,24 @@
     }
   ],
   "sources": [
-    { "label": "MacRumors — Apple AI and developer tool updates (State of the Union)", "url": "https://www.macrumors.com/2026/06/09/apple-outlines-major-ai-and-developer-tool-updates/" }
+    {
+      "label": "MacRumors — Apple AI and developer tool updates (State of the Union)",
+      "url": "https://www.macrumors.com/2026/06/09/apple-outlines-major-ai-and-developer-tool-updates/"
+    }
   ],
   "image_suggestions": [
-    { "placement": "after H1", "description": "WWDC 2026 Platforms State of the Union stage with the Foundation Models framework lockup.", "alt_text": "Apple WWDC 2026 Foundation Models framework announcement" }
+    {
+      "placement": "after H1",
+      "description": "WWDC 2026 Platforms State of the Union stage with the Foundation Models framework lockup.",
+      "alt_text": "Apple WWDC 2026 Foundation Models framework announcement"
+    }
   ],
-  "thumbnail": { "c1": "#0a84ff", "c2": "#5e5ce6" },
+  "thumbnail": {
+    "c1": "#0a84ff",
+    "c2": "#5e5ce6"
+  },
   "published_at": "2026-06-13T08:00:00+08:00",
   "reading_time_min": 5,
-  "importance_score": 9
+  "importance_score": 9,
+  "og_image": "https://boon-boon.github.io/Daily-AI-Tech-News-Blog-Automation/assets/img/covers/apple-foundation-models-free-wwdc-2026.svg"
 }

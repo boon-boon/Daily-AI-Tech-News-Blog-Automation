@@ -2,7 +2,14 @@
   "slug": "openai-oracle-universal-credits",
   "title": "OpenAI models and Codex now run on Oracle Universal Credits",
   "category": "Cloud & Infrastructure",
-  "tags": ["openai", "oracle", "oci", "codex", "enterprise", "cloud"],
+  "tags": [
+    "openai",
+    "oracle",
+    "oci",
+    "codex",
+    "enterprise",
+    "cloud"
+  ],
   "meta_description": "OpenAI says Oracle Cloud Infrastructure customers can now access its frontier models and Codex through existing Oracle Universal Credits, skipping separate procurement.",
   "tldr": "OpenAI announced on June 11 that Oracle Cloud Infrastructure customers can access its frontier models and Codex through their existing Oracle Universal Credits. The deal lets enterprises deploy OpenAI technology without opening a separate procurement channel, folding AI spend into a contract they already have.",
   "body_markdown": "## The announcement\n\nOn June 11, 2026, OpenAI said enterprise customers can now access its frontier AI models and **Codex** through their existing **Oracle Universal Credits**. In practice, Oracle Cloud Infrastructure (OCI) customers can deploy OpenAI technology without standing up a separate procurement channel or vendor agreement.\n\n## Why procurement is the story\n\nFor large organizations, the blocker to adopting a new AI vendor is often not the model, it is the paperwork: security review, a new contract, and a new line item in the budget. Routing OpenAI access through Universal Credits, the pooled, prepaid spend OCI customers already manage, collapses that friction. Teams can draw down credits they have already committed to Oracle instead of negotiating a fresh deal.\n\n## What it signals\n\nThe move fits a broader June 2026 pattern of AI labs meeting enterprises inside the clouds and toolchains they already run, rather than asking them to come to a standalone product. Bundling Codex into the same path is notable: it puts OpenAI's coding agent in front of enterprise developers who are already inside the Oracle ecosystem.\n\n## What to watch\n\nThe open questions are how pricing maps onto Universal Credits, which specific frontier models are covered, and whether data residency and isolation guarantees on OCI match what regulated customers need before they move production workloads.",
@@ -21,13 +28,24 @@
     }
   ],
   "sources": [
-    { "label": "CNBC — AI coding models and cloud partnerships, June 2026", "url": "https://www.cnbc.com/2026/06/01/microsoft-and-google-take-on-anthropic-and-openai-in-ai-coding-models.html" }
+    {
+      "label": "CNBC — AI coding models and cloud partnerships, June 2026",
+      "url": "https://www.cnbc.com/2026/06/01/microsoft-and-google-take-on-anthropic-and-openai-in-ai-coding-models.html"
+    }
   ],
   "image_suggestions": [
-    { "placement": "after H1", "description": "Oracle Cloud Infrastructure console with an OpenAI model deployment panel.", "alt_text": "OpenAI models available through Oracle Cloud Infrastructure" }
+    {
+      "placement": "after H1",
+      "description": "Oracle Cloud Infrastructure console with an OpenAI model deployment panel.",
+      "alt_text": "OpenAI models available through Oracle Cloud Infrastructure"
+    }
   ],
-  "thumbnail": { "c1": "#c74634", "c2": "#10a37f" },
+  "thumbnail": {
+    "c1": "#c74634",
+    "c2": "#10a37f"
+  },
   "published_at": "2026-06-13T08:00:00+08:00",
   "reading_time_min": 4,
-  "importance_score": 7
+  "importance_score": 7,
+  "og_image": "https://boon-boon.github.io/Daily-AI-Tech-News-Blog-Automation/assets/img/covers/openai-oracle-universal-credits.svg"
 }

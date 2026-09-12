@@ -39,10 +39,21 @@ except ImportError:
     sys.exit(1)
 
 
+from covers import build_cover, cover_rel_path
+
 ROOT = Path(__file__).resolve().parent.parent
 ARTICLES_DIR = ROOT / "data" / "articles"
 POSTS_DIR    = ROOT / "web" / "posts"
 TEMPLATE     = ROOT / "web" / "article.html"
+
+# Generated article covers. They land in the Angular app's static assets so
+# `ng build` copies them into the published site with no extra step.
+# See scripts/covers.py.
+COVERS_DIR = ROOT / "angular-web" / "public" / "assets" / "img" / "covers"
+
+# Absolute origin, used only for og:image — social scrapers reject relative
+# URLs. On-page image paths stay relative so the app's <base href> applies.
+SITE_BASE = "https://boon-boon.github.io/Daily-AI-Tech-News-Blog-Automation"
 
 # daily.json is written to TWO locations:
 #   - data/daily.json        → source of truth committed to the repo root
@@ -163,6 +174,21 @@ def render_article_page(article: Dict[str, Any], date: str) -> str:
     return template
 
 
+def _running_total(previous_daily: Optional[Dict[str, Any]], date: str, count: int) -> int:
+    """
+    Lifetime article count, safe to recompute.
+
+    daily.json always describes exactly one day, so its `date_iso` tells us
+    whether this day has already been added to the total. Rebuilding the same
+    day returns the total unchanged; a new day adds that day's articles.
+    """
+    prev = previous_daily or {}
+    prev_total = prev.get("stats", {}).get("articles_published_total", 0)
+    if prev.get("date_iso") == date:
+        return prev_total
+    return prev_total + count
+
+
 def render_daily_json(date: str, articles: List[Dict[str, Any]], previous_daily: Optional[Dict[str, Any]]) -> Dict[str, Any]:
     """Build the homepage data file from one day's articles."""
     if not articles:
@@ -186,6 +212,9 @@ def render_daily_json(date: str, articles: List[Dict[str, Any]], previous_daily:
             "tags":             a.get("tags", []),
             "sources":          a.get("sources", []),
             "thumbnail":        a.get("thumbnail", {"c1": "#7c5cff", "c2": "#00d4ff"}),
+            # Generated cover. The UI still keeps `thumbnail` as the fallback
+            # gradient if the image ever fails to load.
+            "image":            cover_rel_path(a),
         }
 
     # Per-category counts for the homepage cards
@@ -221,7 +250,10 @@ def render_daily_json(date: str, articles: List[Dict[str, Any]], previous_daily:
         "date_human":   datetime.fromisoformat(date).strftime("%B %d, %Y"),
         "timezone":     "Asia/Kuala_Lumpur",
         "stats": {
-            "articles_published_total": (previous_daily or {}).get("stats", {}).get("articles_published_total", 0) + len(articles),
+            # Idempotent: rebuilding a day that's already counted must not
+            # inflate the running total (the build gets re-run often — from
+            # run.bat, from CI, or by the scheduled task retrying).
+            "articles_published_total": _running_total(previous_daily, date, len(articles)),
             "sources_monitored": 52,
             "daily_update_time": "08:00 MYT",
             "automation_percent": 100,
@@ -241,8 +273,15 @@ def build_day(date: str) -> int:
         print(f"[skip] no articles for {date}", file=sys.stderr)
         return 0
 
-    dst_dir = POSTS_DIR / date
-    dst_dir.mkdir(parents=True, exist_ok=True)
+    # The legacy static `web/` frontend is optional — the Angular app is the
+    # published site now. If its template is gone, skip that half of the build
+    # rather than failing the whole run (daily.json and covers still matter).
+    render_legacy_html = TEMPLATE.exists()
+    if not render_legacy_html:
+        print(f"[skip] {TEMPLATE.relative_to(ROOT)} not found — skipping legacy web/ pages")
+    else:
+        dst_dir = POSTS_DIR / date
+        dst_dir.mkdir(parents=True, exist_ok=True)
 
     articles: List[Dict[str, Any]] = []
     for jf in sorted(src_dir.glob("*.json")):
@@ -252,10 +291,25 @@ def build_day(date: str) -> int:
             print(f"[error] {jf}: {e}", file=sys.stderr)
             continue
         articles.append(data)
-        html_out = render_article_page(data, date)
-        out_file = dst_dir / f"{data['slug']}.html"
-        out_file.write_text(html_out, encoding="utf-8")
-        print(f"[ok] {out_file.relative_to(ROOT)}")
+
+        # 1. Cover image, generated from the article's own title/category/colors.
+        cover_file = build_cover(data, COVERS_DIR)
+        print(f"[ok] {cover_file.relative_to(ROOT)}")
+
+        # 2. Backfill og_image on the source JSON so article pages get a
+        #    social/link-preview image. Only set when absent, so a
+        #    hand-picked image is never overwritten.
+        if not data.get("og_image"):
+            data["og_image"] = f"{SITE_BASE}/{cover_rel_path(data)}"
+            jf.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
+            print(f"[ok] og_image set on {jf.relative_to(ROOT)}")
+
+        # 3. Legacy static HTML page, when the template still exists.
+        if render_legacy_html:
+            html_out = render_article_page(data, date)
+            out_file = POSTS_DIR / date / f"{data['slug']}.html"
+            out_file.write_text(html_out, encoding="utf-8")
+            print(f"[ok] {out_file.relative_to(ROOT)}")
 
     # Refresh daily.json for the latest date only
     latest_date = max(d.name for d in ARTICLES_DIR.iterdir() if d.is_dir())
