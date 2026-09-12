@@ -1,0 +1,118 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DailyTechPulse",
+  "description": "Canonical daily data file consumed by the website. Produced by the Python pipeline (and optionally the last30days skill).",
+  "type": "object",
+  "required": ["generated_at", "date_iso", "date_human", "featured", "latest", "github_trending", "categories"],
+  "properties": {
+    "version": { "type": "string", "default": "1.0" },
+    "generated_at": { "type": "string", "format": "date-time" },
+    "date_iso": { "type": "string", "format": "date" },
+    "date_human": { "type": "string" },
+    "timezone": { "type": "string", "default": "Asia/Kuala_Lumpur" },
+    "stats": {
+      "type": "object",
+      "properties": {
+        "articles_published_total": { "type": "integer" },
+        "sources_monitored": { "type": "integer" },
+        "daily_update_time": { "type": "string" },
+        "automation_percent": { "type": "integer" }
+      }
+    },
+    "featured": { "$ref": "#/definitions/article" },
+    "latest": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/article" },
+      "minItems": 0
+    },
+    "github_trending": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/repo" }
+    },
+    "categories": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["slug", "name"],
+        "properties": {
+          "slug": { "type": "string" },
+          "name": { "type": "string" },
+          "icon": { "type": "string", "description": "Icon name from lucide" },
+          "description": { "type": "string" },
+          "article_count_today": { "type": "integer" },
+          "color_from": { "type": "string" },
+          "color_to": { "type": "string" }
+        }
+      }
+    },
+    "community_pulse": {
+      "type": "object",
+      "description": "Optional. Output from /last30days skill, when run.",
+      "properties": {
+        "top_topics": { "type": "array", "items": { "type": "string" } },
+        "best_takes": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["source", "quote", "url"],
+            "properties": {
+              "source": { "type": "string", "enum": ["reddit","hn","x","youtube","tiktok","polymarket","bluesky","threads"] },
+              "subreddit_or_handle": { "type": "string" },
+              "author": { "type": "string" },
+              "quote": { "type": "string" },
+              "engagement": { "type": "string", "description": "human readable, e.g. '1.5k upvotes'" },
+              "url": { "type": "string", "format": "uri" }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "article": {
+      "type": "object",
+      "required": ["id", "title", "category", "permalink", "published_at"],
+      "properties": {
+        "id": { "type": "string" },
+        "title": { "type": "string" },
+        "category": { "type": "string" },
+        "excerpt": { "type": "string" },
+        "tldr": { "type": "string" },
+        "permalink": { "type": "string" },
+        "published_at": { "type": "string", "format": "date-time" },
+        "reading_time_min": { "type": "integer" },
+        "tags": { "type": "array", "items": { "type": "string" } },
+        "sources": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": { "label": { "type": "string" }, "url": { "type": "string" } }
+          }
+        },
+        "thumbnail": {
+          "type": "object",
+          "description": "Gradient colors for the SVG-free card thumbnail.",
+          "properties": {
+            "c1": { "type": "string", "description": "Top-left gradient color" },
+            "c2": { "type": "string", "description": "Bottom-right gradient color" }
+          }
+        }
+      }
+    },
+    "repo": {
+      "type": "object",
+      "required": ["repo", "url"],
+      "properties": {
+        "repo": { "type": "string", "description": "owner/name" },
+        "url": { "type": "string", "format": "uri" },
+        "description": { "type": "string" },
+        "language": { "type": "string" },
+        "language_color": { "type": "string" },
+        "stars_total": { "type": "integer" },
+        "stars_today": { "type": "integer" },
+        "latest_release": { "type": "string" },
+        "is_release": { "type": "boolean", "default": false }
+      }
+    }
+  }
+}

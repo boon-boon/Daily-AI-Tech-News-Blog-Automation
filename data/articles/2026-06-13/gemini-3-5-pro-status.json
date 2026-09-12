@@ -1,0 +1,34 @@
+{
+  "slug": "gemini-3-5-pro-status",
+  "title": "Gemini 3.5 Pro still not GA a month after Google's I/O promise",
+  "category": "AI Models",
+  "tags": ["google", "gemini", "gemini-3-5-pro", "llm", "deep-think", "context-window"],
+  "meta_description": "Google teased Gemini 3.5 Pro at I/O and said \"give us until next month.\" As of mid-June it is still in limited preview, even as Gemini 3.5 Flash went generally available.",
+  "tldr": "Google previewed Gemini 3.5 Pro at I/O on May 19 with a two-million-token context window and a Deep Think reasoning mode, telling developers to wait about a month. As of mid-June it remains in limited Vertex AI preview rather than general availability, while the cheaper Gemini 3.5 Flash already shipped to GA and became the default in the Gemini app and AI Mode in Search.",
+  "body_markdown": "## Where Gemini 3.5 Pro stands\n\nAt Google I/O on May 19, 2026, Sundar Pichai previewed **Gemini 3.5 Pro** and set expectations directly: \"Give us until next month to get it to you.\" As of mid-June, the model has not reached general availability. It has been running in limited Vertex AI preview and internal use, with confirmed capabilities including a **two-million-token context window**, a **Deep Think reasoning mode**, and frontier multimodal understanding.\n\n## Flash shipped, Pro didn't\n\nThe contrast is the story. **Gemini 3.5 Flash** went generally available at I/O and is already the default in the Gemini app and in AI Mode in Search, with API pricing reported around $1.50 per million input tokens and $9.00 per million output tokens. Google's faster, cheaper tier is in production while the flagship reasoning model is still gated.\n\n## Why the staggered rollout\n\nShipping the high-volume Flash tier first lets Google capture the bulk of everyday traffic immediately, while it hardens the more expensive Pro model for the agentic and long-context workloads where reliability matters most. A two-million-token context and a dedicated Deep Think mode are exactly the features that need careful evaluation before a broad launch.\n\n## What to watch\n\nThe questions now are when Pro actually reaches GA, whether the Deep Think mode is billed differently, and how its long-horizon reasoning compares head to head with Anthropic's Claude Opus 4.8 and OpenAI's GPT-5.5, the other frontier models builders are weighing this month.",
+  "faq": [
+    {
+      "question": "Is Gemini 3.5 Pro available yet?",
+      "answer": "As of mid-June 2026 it is not generally available. It has been in limited Vertex AI preview and internal use since being teased at Google I/O on May 19."
+    },
+    {
+      "question": "What is different about Gemini 3.5 Pro?",
+      "answer": "Confirmed features include a two-million-token context window, a Deep Think reasoning mode, and frontier multimodal understanding across text, image, audio, and video."
+    },
+    {
+      "question": "What about Gemini 3.5 Flash?",
+      "answer": "Flash already went generally available and is the default in the Gemini app and AI Mode in Search, with reported API pricing around $1.50 input and $9.00 output per million tokens."
+    }
+  ],
+  "sources": [
+    { "label": "llm-stats — LLM news and model releases, June 2026", "url": "https://llm-stats.com/ai-news" },
+    { "label": "Build Fast with AI — AI News June 11, 2026", "url": "https://www.buildfastwithai.com/blogs/ai-news-today-june-11-2026" }
+  ],
+  "image_suggestions": [
+    { "placement": "after H1", "description": "Gemini 3.5 Pro preview badge in the Vertex AI console next to the GA Flash tier.", "alt_text": "Gemini 3.5 Pro in limited preview while Flash is generally available" }
+  ],
+  "thumbnail": { "c1": "#4285f4", "c2": "#9b72cb" },
+  "published_at": "2026-06-13T08:00:00+08:00",
+  "reading_time_min": 4,
+  "importance_score": 6
+}

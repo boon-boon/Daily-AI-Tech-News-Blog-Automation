@@ -1,0 +1,283 @@
+{
+  "version": "1.0",
+  "generated_at": "2026-06-29T21:20:14+08:00",
+  "date_iso": "2026-06-13",
+  "date_human": "June 13, 2026",
+  "timezone": "Asia/Kuala_Lumpur",
+  "stats": {
+    "articles_published_total": 1261,
+    "sources_monitored": 52,
+    "daily_update_time": "08:00 MYT",
+    "automation_percent": 100
+  },
+  "featured": {
+    "id": "apple-foundation-models-free-wwdc-2026",
+    "title": "Apple opens Foundation Models to developers free at WWDC 2026",
+    "category": "Developer Tools",
+    "excerpt": "At WWDC 2026 Apple opened its Foundation Models framework: free on-device and Private Cloud Compute access, image input, and third-party model calls through Swift.",
+    "tldr": "At its 2026 Platforms State of the Union, Apple removed the cost barrier to building AI features on its platforms. Developers with fewer than two million first-time App Store downloads get free access to Apple Foundation Models on Private Cloud Compute, plus image input, server-side model calls, and a new multi-agent Dynamic Profiles system. Apple also confirmed the framework goes open source later this summer.",
+    "permalink": "/posts/2026-06-13/apple-foundation-models-free-wwdc-2026.html",
+    "published_at": "2026-06-13T08:00:00+08:00",
+    "reading_time_min": 5,
+    "tags": [
+      "apple",
+      "wwdc-2026",
+      "foundation-models",
+      "on-device-ai",
+      "private-cloud-compute",
+      "swift"
+    ],
+    "sources": [
+      {
+        "label": "MacRumors — Apple AI and developer tool updates (State of the Union)",
+        "url": "https://www.macrumors.com/2026/06/09/apple-outlines-major-ai-and-developer-tool-updates/"
+      }
+    ],
+    "thumbnail": {
+      "c1": "#0a84ff",
+      "c2": "#5e5ce6"
+    }
+  },
+  "latest": [
+    {
+      "id": "claude-agent-sdk-launch",
+      "title": "Anthropic's Claude Agent SDK brings MCP and sub-agents to TypeScript and Python",
+      "category": "Developer Tools",
+      "excerpt": "Anthropic's Claude Agent SDK gives developers a TypeScript and Python toolchain that wires native Model Context Protocol servers and sub-agents directly into Claude.",
+      "tldr": "Anthropic introduced the Claude Agent SDK, a TypeScript and Python toolchain for building agents on Claude Sonnet and Opus. It integrates native Model Context Protocol (MCP) servers and sub-agents directly, giving teams a supported path to multi-tool, multi-step agents instead of hand-rolled glue code.",
+      "permalink": "/posts/2026-06-13/claude-agent-sdk-launch.html",
+      "published_at": "2026-06-13T08:00:00+08:00",
+      "reading_time_min": 4,
+      "tags": [
+        "anthropic",
+        "claude",
+        "agent-sdk",
+        "mcp",
+        "sub-agents",
+        "typescript",
+        "python"
+      ],
+      "sources": [
+        {
+          "label": "devFlokers — Open-source AI roundup, June 2026",
+          "url": "https://www.devflokers.com/blog/open-source-ai-roundup-june-2026"
+        }
+      ],
+      "thumbnail": {
+        "c1": "#d97757",
+        "c2": "#7c5cff"
+      }
+    },
+    {
+      "id": "openai-oracle-universal-credits",
+      "title": "OpenAI models and Codex now run on Oracle Universal Credits",
+      "category": "Cloud & Infrastructure",
+      "excerpt": "OpenAI says Oracle Cloud Infrastructure customers can now access its frontier models and Codex through existing Oracle Universal Credits, skipping separate procurement.",
+      "tldr": "OpenAI announced on June 11 that Oracle Cloud Infrastructure customers can access its frontier models and Codex through their existing Oracle Universal Credits. The deal lets enterprises deploy OpenAI technology without opening a separate procurement channel, folding AI spend into a contract they already have.",
+      "permalink": "/posts/2026-06-13/openai-oracle-universal-credits.html",
+      "published_at": "2026-06-13T08:00:00+08:00",
+      "reading_time_min": 4,
+      "tags": [
+        "openai",
+        "oracle",
+        "oci",
+        "codex",
+        "enterprise",
+        "cloud"
+      ],
+      "sources": [
+        {
+          "label": "CNBC — AI coding models and cloud partnerships, June 2026",
+          "url": "https://www.cnbc.com/2026/06/01/microsoft-and-google-take-on-anthropic-and-openai-in-ai-coding-models.html"
+        }
+      ],
+      "thumbnail": {
+        "c1": "#c74634",
+        "c2": "#10a37f"
+      }
+    },
+    {
+      "id": "openai-realtime-audio-models",
+      "title": "OpenAI ships three real-time audio models for voice agents",
+      "category": "AI Models",
+      "excerpt": "OpenAI launched three real-time audio models aimed at conversational agents, live translation, and transcription, pushing voice from a feature toward core infrastructure.",
+      "tldr": "OpenAI released three real-time audio models targeting conversational agents, translation, and transcription. The split into purpose-built models signals that voice is being treated as production infrastructure for agents rather than a single bolt-on speech feature.",
+      "permalink": "/posts/2026-06-13/openai-realtime-audio-models.html",
+      "published_at": "2026-06-13T08:00:00+08:00",
+      "reading_time_min": 4,
+      "tags": [
+        "openai",
+        "audio",
+        "voice-agents",
+        "speech-to-text",
+        "translation",
+        "realtime"
+      ],
+      "sources": [
+        {
+          "label": "Crescendo AI — Latest AI news, June 2026",
+          "url": "https://www.crescendo.ai/news/latest-ai-news-and-updates"
+        }
+      ],
+      "thumbnail": {
+        "c1": "#10a37f",
+        "c2": "#1bd4ff"
+      }
+    },
+    {
+      "id": "gemini-3-5-pro-status",
+      "title": "Gemini 3.5 Pro still not GA a month after Google's I/O promise",
+      "category": "AI Models",
+      "excerpt": "Google teased Gemini 3.5 Pro at I/O and said \"give us until next month.\" As of mid-June it is still in limited preview, even as Gemini 3.5 Flash went generally available.",
+      "tldr": "Google previewed Gemini 3.5 Pro at I/O on May 19 with a two-million-token context window and a Deep Think reasoning mode, telling developers to wait about a month. As of mid-June it remains in limited Vertex AI preview rather than general availability, while the cheaper Gemini 3.5 Flash already shipped to GA and became the default in the Gemini app and AI Mode in Search.",
+      "permalink": "/posts/2026-06-13/gemini-3-5-pro-status.html",
+      "published_at": "2026-06-13T08:00:00+08:00",
+      "reading_time_min": 4,
+      "tags": [
+        "google",
+        "gemini",
+        "gemini-3-5-pro",
+        "llm",
+        "deep-think",
+        "context-window"
+      ],
+      "sources": [
+        {
+          "label": "llm-stats — LLM news and model releases, June 2026",
+          "url": "https://llm-stats.com/ai-news"
+        },
+        {
+          "label": "Build Fast with AI — AI News June 11, 2026",
+          "url": "https://www.buildfastwithai.com/blogs/ai-news-today-june-11-2026"
+        }
+      ],
+      "thumbnail": {
+        "c1": "#4285f4",
+        "c2": "#9b72cb"
+      }
+    }
+  ],
+  "github_trending": [
+    {
+      "repo": "anthropics/anthropic-sdk-python",
+      "url": "https://github.com/anthropics/anthropic-sdk-python",
+      "description": "Official Python SDK for Claude, now paired with the new Claude Agent SDK and MCP tooling.",
+      "language": "Python",
+      "language_color": "#3572A5",
+      "stars_total": 21800,
+      "stars_today": 540,
+      "latest_release": "agent-sdk",
+      "is_release": true
+    },
+    {
+      "repo": "openai/openai-python",
+      "url": "https://github.com/openai/openai-python",
+      "description": "Official Python client for the OpenAI API, updated for the new real-time audio models.",
+      "language": "Python",
+      "language_color": "#3572A5",
+      "stars_total": 29400,
+      "stars_today": 410
+    },
+    {
+      "repo": "modelcontextprotocol/servers",
+      "url": "https://github.com/modelcontextprotocol/servers",
+      "description": "Reference Model Context Protocol servers connecting agents to tools and data sources.",
+      "language": "TypeScript",
+      "language_color": "#3178c6",
+      "stars_total": 34200,
+      "stars_today": 760,
+      "is_release": false
+    },
+    {
+      "repo": "apple/swift",
+      "url": "https://github.com/apple/swift",
+      "description": "The Swift programming language, the API surface for Apple's expanding Foundation Models framework.",
+      "language": "C++",
+      "language_color": "#f34b7d",
+      "stars_total": 68900,
+      "stars_today": 190
+    }
+  ],
+  "categories": [
+    {
+      "slug": "ai-ml",
+      "name": "AI & ML",
+      "description": "Models, research, OpenAI, Anthropic, Google, Hugging Face.",
+      "article_count_today": 2,
+      "color_from": "#7c5cff",
+      "color_to": "#00d4ff"
+    },
+    {
+      "slug": "developer-tools",
+      "name": "Developer Tools",
+      "description": "SDKs, frameworks, and the toolchains builders ship with.",
+      "article_count_today": 2,
+      "color_from": "#0a84ff",
+      "color_to": "#5e5ce6"
+    },
+    {
+      "slug": "cloud",
+      "name": "Cloud & Infra",
+      "description": "Cloud platforms, deployment, and enterprise AI plumbing.",
+      "article_count_today": 0,
+      "color_from": "#22d3ee",
+      "color_to": "#10b981"
+    },
+    {
+      "slug": "programming",
+      "name": "Programming",
+      "description": "Language and framework releases â€” Python, TS, Rust, Go.",
+      "article_count_today": 0,
+      "color_from": "#f59e0b",
+      "color_to": "#ef4444"
+    },
+    {
+      "slug": "open-source",
+      "name": "Open Source",
+      "description": "GitHub trending, releases, and the projects developers love.",
+      "article_count_today": 0,
+      "color_from": "#06b6d4",
+      "color_to": "#8b5cf6"
+    },
+    {
+      "slug": "industry",
+      "name": "Industry News",
+      "description": "Partnerships, market moves, and the business of technology.",
+      "article_count_today": 0,
+      "color_from": "#ef4444",
+      "color_to": "#f59e0b"
+    }
+  ],
+  "community_pulse": {
+    "top_topics": [
+      "WWDC 2026 Foundation Models",
+      "OpenAI real-time audio models",
+      "OpenAI x Oracle Universal Credits",
+      "Gemini 3.5 Pro still in preview",
+      "Claude Agent SDK"
+    ],
+    "best_takes": [
+      {
+        "source": "MacRumors",
+        "author": "Will Co",
+        "quote": "Apple are not using Gemini as the literal backbone for Siri - that's a very generalised, sweeping and misleading statement.",
+        "engagement": "5 votes",
+        "url": "https://forums.macrumors.com/threads/apple-outlines-major-ai-and-developer-tool-updates-at-2026-platforms-state-of-the-union.2483618/post-34624818"
+      },
+      {
+        "source": "MacRumors",
+        "author": "Mac Fly",
+        "quote": "In time you'll be able to switch your foundation models for Siri, and Apple will probably build their own fully in-house models as the tech shrinks and evolves.",
+        "engagement": "1 vote",
+        "url": "https://forums.macrumors.com/threads/apple-outlines-major-ai-and-developer-tool-updates-at-2026-platforms-state-of-the-union.2483618/post-34624864"
+      },
+      {
+        "source": "MacRumors",
+        "author": "svish",
+        "quote": "Not surprising to see Liquid Glass forced migration - Apple is fully going to embrace it, especially with the 20th anniversary iPhone.",
+        "engagement": "1 vote",
+        "url": "https://forums.macrumors.com/threads/apple-outlines-major-ai-and-developer-tool-updates-at-2026-platforms-state-of-the-union.2483618/post-34625020"
+      }
+    ]
+  }
+}

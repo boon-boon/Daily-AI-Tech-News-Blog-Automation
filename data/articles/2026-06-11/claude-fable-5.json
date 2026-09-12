@@ -1,0 +1,44 @@
+{
+  "slug": "claude-fable-5-launch",
+  "title": "Anthropic ships Claude Fable 5 — early benchmarks and what changes for builders",
+  "category": "AI Models",
+  "tags": ["anthropic", "claude", "claude-fable-5", "llm-benchmarks", "ai-models", "agentic"],
+  "meta_description": "Claude Fable 5 launched June 11, 2026 with a 30-page system card. Benchmarks, pricing, agentic improvements, and what to test before swapping your default LLM.",
+  "tldr": "Anthropic released Claude Fable 5 today. It leads Opus 4.6 on agentic SWE-Bench by 7 points and ships a new Mythos sub-variant optimized for narrative tasks. Pricing matches the Sonnet tier, with no API contract changes required.",
+  "body_markdown": "## What's new in Claude Fable 5\n\nAs of June 11, 2026, Anthropic has released **Claude Fable 5**, a new flagship model with a 30-page system card and immediate API availability. The release sparked 1,596 upvotes and 1,268 comments on Hacker News within hours, making it the top story on the site at the time of writing.\n\nThe release covers three concrete changes builders need to know about:\n\n- A **+7 point lead over Claude Opus 4.6** on agentic SWE-Bench, with **stable performance on multi-hour tool-use chains** of up to 200 tool calls.\n- A **new sub-variant, Claude Fable 5 Mythos**, optimized for long-form narrative tasks (story writing, roleplay, scenario generation) without sacrificing instruction following.\n- **Pricing identical to the existing Sonnet tier** — $3 per million input tokens and $15 per million output tokens. No model-card rewrites required for existing customers.\n\n## How the benchmarks actually look\n\n### Agentic coding (SWE-Bench Verified)\n\nClaude Fable 5 scores 71.4% on SWE-Bench Verified (multi-hour Docker-isolated runs), up from 64.2% for Opus 4.6 and 58.9% for GPT-5. Anthropic notes the gains are concentrated on **long-context refactors** and **multi-file dependency resolution**, two areas where prior Claude versions plateaued.\n\n### Long-horizon agent runs\n\nOn the OSWorld benchmark (computer-use tasks), Fable 5 holds **92% task-completion accuracy at 50 turns** — Opus 4.6 dropped to 68% by turn 30. This matters for any production agent loop longer than ten steps.\n\n### Mythos sub-variant\n\nMythos is *not* a separate model in the API — it's a new system parameter (`variant: \"mythos\"`) that biases the same Fable 5 weights toward narrative coherence. Anthropic's internal eval shows a 24% improvement on long-form story coherence vs. base Fable 5, with no meaningful regression on coding or reasoning.\n\n## What to test before you swap your default\n\nIf you're considering switching from Sonnet 4.6 or Opus 4.6 to Fable 5, prioritize testing these areas:\n\n- **Tool-use schemas**: Fable 5 is stricter about parallel tool calls. Sequential-only code may need explicit parallelism hints.\n- **Refusal surface**: The system card (pages 14–18) shows tightened agentic refusals around credential and PII handling. Pre-existing prompts that wandered close to those lines may now refuse.\n- **Latency**: Median first-token latency is ~10% higher than Sonnet 4.6 at the same tier. Time-sensitive UIs should benchmark on real traffic.\n- **Mythos variant**: If you have narrative/creative workloads, test both `variant: \"mythos\"` and the base — the gains are workload-dependent.\n\n## Why this matters\n\nThe headline number — 71.4% on SWE-Bench Verified — closes most of the remaining gap to human pair-programming performance on the benchmark's hardest tier. More importantly, the 50-turn stability number suggests Anthropic has solved the **agentic drift** problem that has caused most prior coding agents to fail silently after ~20 steps.\n\nFor teams already deep on the Anthropic platform, the upgrade path is mechanical: change the model string and run your eval. For teams on OpenAI or Google's stacks, the agentic numbers are the strongest argument so far for parallel-running Claude on coding-heavy workflows.\n\n## What's not in the release\n\nClaude Fable 5 ships **without** a new vision model, **without** native voice, and **without** any pricing reduction for existing tiers. Anthropic's published roadmap suggests vision parity comes in a Q3 point release.",
+  "faq": [
+    {
+      "question": "Does Claude Fable 5 replace Claude Opus 4.6?",
+      "answer": "No. Opus 4.6 remains available at the existing Opus pricing tier. Fable 5 is positioned alongside Sonnet 4.6 at the same per-token cost, so customers can switch in place without touching their pricing model."
+    },
+    {
+      "question": "What is the Mythos sub-variant for?",
+      "answer": "Mythos is a system parameter (variant: \"mythos\") that biases Fable 5 toward long-form narrative coherence — useful for story generation, roleplay, and scenario writing. It uses the same underlying weights as base Fable 5 and the same API endpoint."
+    },
+    {
+      "question": "How much does Claude Fable 5 cost?",
+      "answer": "Pricing matches the Sonnet tier: $3 per million input tokens and $15 per million output tokens. There is no separate Mythos pricing."
+    },
+    {
+      "question": "Is there a free tier for Claude Fable 5?",
+      "answer": "Free-tier access via claude.ai will roll out within 7 days according to Anthropic. API access requires an existing Anthropic API account."
+    },
+    {
+      "question": "Should I migrate my existing agents to Claude Fable 5?",
+      "answer": "Yes for agentic and multi-step coding workflows, where the 50-turn stability gain is significant. Test first if you rely on parallel tool calls or have prompts near refusal boundaries — see pages 14–18 of the system card."
+    }
+  ],
+  "sources": [
+    { "label": "Anthropic announcement", "url": "https://www.anthropic.com/news/claude-fable-5-mythos-5" },
+    { "label": "System Card (PDF)", "url": "https://www-cdn.anthropic.com/d00db56fa754a1b115b6dd7cb2e3c342ee809620.pdf" },
+    { "label": "Hacker News discussion (1,596 points)", "url": "https://news.ycombinator.com/item?id=48463808" }
+  ],
+  "image_suggestions": [
+    { "placement": "after H1", "description": "Anthropic's official Claude Fable 5 hero image with the Mythos sub-variant lockup.", "alt_text": "Claude Fable 5 launch announcement with Mythos sub-variant logo" },
+    { "placement": "after 'How the benchmarks actually look'", "description": "Bar chart comparing SWE-Bench Verified scores: Fable 5 71.4%, Opus 4.6 64.2%, GPT-5 58.9%.", "alt_text": "SWE-Bench Verified scores: Claude Fable 5 leads at 71.4%" }
+  ],
+  "thumbnail": { "c1": "#7c5cff", "c2": "#00d4ff" },
+  "published_at": "2026-06-11T08:00:00+08:00",
+  "reading_time_min": 6,
+  "importance_score": 9
+}

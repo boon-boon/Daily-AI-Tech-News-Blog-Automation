@@ -1,0 +1,37 @@
+{
+  "name": "techpulse-angular-web",
+  "version": "1.0.0",
+  "description": "Angular frontend for the Daily AI Tech News blog. Consumes the same daily.json + per-article JSON produced by the Python automation backend.",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "watch": "ng build --watch --configuration development",
+    "sync-data": "node scripts/sync-data.mjs",
+    "serve:ssr:techpulse": "node dist/techpulse/server/server.mjs"
+  },
+  "private": true,
+  "dependencies": {
+    "@angular/common": "^22.0.0",
+    "@angular/compiler": "^22.0.0",
+    "@angular/core": "^22.0.0",
+    "@angular/forms": "^22.0.0",
+    "@angular/platform-browser": "^22.0.0",
+    "@angular/platform-server": "^22.0.0",
+    "@angular/router": "^22.0.0",
+    "@angular/ssr": "^22.1.8",
+    "express": "^5.1.0",
+    "marked": "^18.0.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.6.0",
+    "zone.js": "~0.15.0"
+  },
+  "devDependencies": {
+    "@angular/build": "^22.0.0",
+    "@angular/cli": "^22.0.0",
+    "@angular/compiler-cli": "^22.0.0",
+    "@types/express": "^5.0.1",
+    "@types/node": "^20.17.19",
+    "typescript": "~6.0.0"
+  }
+}
