@@ -19,8 +19,9 @@ the two frontends are interchangeable.
 ## Tech
 
 Angular 22 (standalone components, signals, lazy-loaded routes), the
-`@angular/build` application builder, and `marked` for Markdown. No backend of its
-own — it's a static build that fetches JSON.
+`@angular/build` application builder with SSR + static prerendering
+(`@angular/ssr`, `outputMode: "static"`), and `marked` for Markdown. No server
+needed at runtime — the production build is fully static HTML.
 
 ## Quick start
 
@@ -31,10 +32,12 @@ npm run sync-data     # copy ../data into public/data (named by slug)
 npm start             # dev server at http://localhost:4200
 ```
 
-Production build:
+Production build (must run `sync-data` first — the prerenderer reads
+`public/data/articles` at build time to know every article route to bake):
 
 ```bash
-npm run build         # outputs to dist/techpulse/browser
+npm run sync-data
+npm run build         # outputs to dist/techpulse/browser — every route prerendered
 ```
 
 ## Data flow
@@ -61,21 +64,27 @@ the same pipeline.
 To point the SPA at data hosted elsewhere (CDN, the Python server, WordPress),
 change `dataBase` in `src/app/services/news.service.ts`.
 
-## SEO & SSR (important)
+## SEO & SSR
 
-Angular renders **client-side**, so crawlers that don't execute JavaScript won't
-see the meta tags or JSON-LD this app injects. Two ways to handle that:
+Every route is statically prerendered at build time (`outputMode: "static"` in
+`angular.json` + `src/app/app.routes.server.ts`), so the shipped HTML already
+has the real `<title>`, meta description, Open Graph tags, and JSON-LD
+(`TechArticle` + `FAQPage`) baked in per page — no JavaScript required for a
+crawler to see them. SPA navigation still kicks in for a human visitor after
+first load.
 
-1. **Rely on the static backend output** — the Python pipeline already emits fully
-   crawlable HTML under `web/posts/`. Use that for Google SGE / AI crawlers and
-   treat this Angular app as the richer interactive UI. (Default assumption.)
-2. **Enable SSR / prerendering** for the Angular app:
-   ```bash
-   ng add @angular/ssr
-   ```
-   Because the route set is known at build time (one route per article), static
-   **prerendering** is the best fit — it produces crawlable HTML per article with
-   all meta/JSON-LD baked in, while keeping SPA navigation after first load.
+`app.routes.server.ts` builds the list of routes to prerender:
+
+- `/posts/:date/:slug` — enumerated from every file under
+  `public/data/articles/<date>/*.json` at build time. This means
+  **`npm run sync-data` must run before `npm run build`** — otherwise there's
+  nothing to prerender and only the shell routes get built.
+- `/category/:slug` — a fixed list of the six category slugs (kept in sync
+  with `CATEGORY_KEYWORDS` in `category.component.ts`).
+- everything else — prerendered as-is.
+
+If you add a new category, update both `CATEGORY_SLUGS` in
+`app.routes.server.ts` and `CATEGORY_KEYWORDS` in `category.component.ts`.
 
 ## Project structure
 
@@ -92,7 +101,10 @@ angular-web/
     └── app/
         ├── app.component.ts        # shell: header + footer
         ├── app.config.ts           # router + HttpClient providers
-        ├── app.routes.ts           # lazy routes
+        ├── app.routes.ts           # lazy routes (browser)
+        ├── app.routes.server.ts    # prerender plan (build-time route enumeration)
+        ├── app.config.server.ts    # server providers
+        ├── main.server.ts, server.ts   # SSR/prerender entry points
         ├── models/                 # Article, DailyData (mirror schema.json)
         ├── services/               # NewsService, SeoService
         ├── pipes/markdown.pipe.ts  # marked → sanitized HTML
@@ -102,6 +114,9 @@ angular-web/
 
 ## Deploy
 
-The build output (`dist/techpulse/browser`) is fully static — host it on Netlify,
-Vercel, GitHub Pages, S3/CloudFront, or any web server. Configure a SPA fallback
-(serve `index.html` for unknown routes) so deep links work.
+The build output (`dist/techpulse/browser`) is fully static — every known route
+is a real `index.html` file, so no SPA fallback is required for the routes that
+exist. Host it on Netlify, Vercel, GitHub Pages, S3/CloudFront, or any web
+server. A fallback to `index.html` for genuinely unknown paths is still a good
+idea so client-side routing can show the 404 page instead of a raw 404 from the
+host.

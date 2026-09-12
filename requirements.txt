@@ -1,7 +1,8 @@
 # Daily Tech Pulse — Python dependencies
 #
 # This project no longer runs its own LLM pipeline. The daily Claude
-# scheduled task does the writing; the only Python step left is the static
-# site builder, which just renders JSON → HTML.
+# scheduled task does the writing; the Python steps left are validating
+# the article JSON against the schema and rendering JSON → HTML.
 
 markdown>=3.6
+jsonschema>=4.21

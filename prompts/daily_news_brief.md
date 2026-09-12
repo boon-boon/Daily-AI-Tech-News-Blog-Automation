@@ -54,19 +54,32 @@ then run the build script.
    `data/articles/schema.json`. Save as
    `data/articles/<YYYY-MM-DD>/<slug>.json` using the `Write` tool.
 
-5. **Run the build script** to render HTML pages and refresh the homepage:
+5. **Validate before building.** Run the schema validator and stop if it fails
+   — do not build or push invalid articles:
 
        cd "<project root>"
+       python3 scripts/validate_articles.py
+
+   If it exits non-zero, fix the article(s) it flags and re-run it before
+   continuing to step 6.
+
+6. **Run the build script** to render HTML pages and refresh the homepage:
+
        python3 scripts/build_site.py
 
-6. **Commit and push** if the project is a git repo:
+7. **Sync + build the Angular frontend** (optional but keeps it current):
 
-       git add data/ web/posts/ && git commit -m "Daily update YYYY-MM-DD" && git push
+       cd angular-web && npm run sync-data && npm run build
 
-7. **Report back** in chat with:
+8. **Commit and push** if the project is a git repo:
+
+       git add data/ web/posts/ angular-web/public/data && git commit -m "Daily update YYYY-MM-DD" && git push
+
+9. **Report back** in chat with:
    - The number of articles written and their titles.
    - The featured pick and why.
    - Any sources that failed (so they can be fixed).
+   - Whether validation passed cleanly or needed fixes.
 
 ---
 
